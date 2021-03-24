@@ -1,5 +1,6 @@
 
 from django.urls import path
+from django.views.generic import TemplateView
 
 from . import views, api
 
@@ -8,6 +9,7 @@ urlpatterns = [
     path("login", views.login_view, name="login"),
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
+    path('hello-webpack/', TemplateView.as_view(template_name='hello_webpack.html')),
 
     #API
     path("api/grid/<str:account>", api.grid, name="grid"),
