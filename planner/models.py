@@ -33,11 +33,19 @@ class Cell(models.Model):
         ordering = ['-position']
 
 class Post(models.Model):
+    STATUSES = (
+        ('backlog', 'Backlog'),
+        ('inprogress', 'In Progress'),
+        ('review', 'For Review'),
+        ('approved', 'Approved'),
+        ('scheduled', 'Scheduled'),
+        ('posted', 'Posted'),
+    )
     caption = models.TextField(blank=True, null=True, max_length=2200)
     hashtags = models.TextField(blank=True, null=True)
     schedule = models.DateTimeField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=30, default="backlog")
+    status = models.CharField(max_length=30, choices=STATUSES ,default="backlog")
     cell = models.OneToOneField('Cell', on_delete=models.CASCADE, related_name="post")
 
     def serialize(self):
