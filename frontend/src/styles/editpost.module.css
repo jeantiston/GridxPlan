@@ -1,0 +1,40 @@
+.img{
+    width: 50vw;
+    /* max-height: 170px; */
+}
+
+.postPhotoDetails{
+    display: flex;
+}
+
+.postDetails{
+    /* border: red solid 3px; */
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.postDetails > * {
+    flex: 1;
+}
+
+.captionDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.captionDetails > *{
+    flex: 1;
+}
+
+.sub{
+    padding: 0 10px;
+    color: var(--gray);
+}
+
+.subErr{
+    padding: 0 10px;
+    color: var(--danger);
+}

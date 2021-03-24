@@ -19,3 +19,7 @@ planner/migrations/*
 
 static/build/*
 package-lock.json
+
+frontend/build/*
+
+.eslintcache

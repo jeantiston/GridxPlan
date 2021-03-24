@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+
+:root {
+    --light: #ffffff;
+    --dark: #0F003E;
+    --gray: #848484;
+    --light-gray: #AEAEAE;
+    --lighter-gray: #F4F4F4;
+    --primary: #512DA8;
+    --secondary: #7953D2;
+    --overlay: rgb(121,83,210,0.7);
+    --danger: #D40015;
+    --font-primary: "Pacifico", sans-serif;
+    --font-text: "Roboto", sans-serif;
+}
+
+/* html, body {margin: 0; height: 100%; overflow: hidden} */
+html, body {overflow-x: hidden}
+
+body {
+    background-color: var(--lighter-gray);
+    color: var(--dark);
+    font-family: var(--font-text);
+    font-weight: 400;
+}
+
+svg {
+    color: var(--secondary);
+    padding: 10px;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+h2{
+    margin: 0;
+    padding: 0px 10px;
+    font-size: large;
+}
+
+p{
+    /* padding: 0; */
+    padding: 3px 10px 0 10px;
+}
+
+input, select, textarea{
+    background-color: #ffffff;
+    margin: 10px 0px;
+    border: none;
+    color: var(--dark);
+    /* border-radius: 5px; */
+    /* min-height: 30px; */
+    padding: 5px 20px;
+    font-family: var(--font-text);
+    font-size: 0.9rem;
+}
+
+input:focus, select:focus, textarea:focus{
+    outline: none;
+}
+
+textarea{
+    min-height: 150px;
+}
