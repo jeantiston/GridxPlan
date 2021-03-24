@@ -1,0 +1,22 @@
+.flex {
+    background-color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    
+
+}
+
+.profilePhoto {
+    width: 35px;
+    padding: 10px;
+}
+
+.logo {
+    width: 150px;
+    padding: 10px;
+}
