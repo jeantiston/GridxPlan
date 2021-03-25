@@ -20,7 +20,7 @@ import Settings from './pages/Settings'
 
 function App() {
   return (
-    <Router >
+    <Router basename='/planner/'>
     <div className="App">
         {/* <EditPost /> */}
         <Switch>
