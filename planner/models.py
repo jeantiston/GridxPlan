@@ -16,6 +16,12 @@ class Account(models.Model):
     user = models.ManyToManyField(User, related_name='user_accounts')
     team = models.ForeignKey(Team, blank=True, null=True, related_name="team_accounts", on_delete=models.CASCADE)
 
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username
+        }
+
 class Cell(models.Model):
     image = models.URLField(blank=False, null=False)
     account = models.ForeignKey(Account, related_name="account_grid", on_delete=models.CASCADE)

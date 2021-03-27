@@ -131,3 +131,6 @@ STATICFILES_DIRS = [
 ]
 
 AUTH_USER_MODEL = 'planner.User'
+
+# Login redirect
+LOGIN_URL = '/login/'

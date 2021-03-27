@@ -9,7 +9,29 @@ from datetime import datetime
 
 from .models import User, Team, Account, Cell, Post
 
+# @login_required
+
+def accounts(request):
+    try:
+        ig_accounts = Account.objects.filter(user=request.user.id)
+    except Account.DoesNotExist:
+        return JsonResponse({"error": "Error"}, status=404)
+
+    if request.method == "GET":
+        return JsonResponse([account.serialize() for account in ig_accounts], safe=False)
+        
+    else:
+        return JsonResponse({
+            "error": "GET request required."
+        }, status=400)
+    print(ig_accounts)
+    print(request.user.id)
+    return HttpResponse("beep")
+    
+
 def grid(request, account):
+    print(request)
+    print(request.user)
     try:
         cells = Cell.objects.filter(account__username__icontains=account)
     except Cell.DoesNotExist:
