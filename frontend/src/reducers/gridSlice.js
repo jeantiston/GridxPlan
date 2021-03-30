@@ -1,50 +1,56 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { client } from '../data/client'
+
+export const fetchPosts = createAsyncThunk('grid/fetchGrid', async () => {
+    console.log("he2y")
+
+    const response = await client.get('/api/grid/jeloufish')
+    // console.log(response)
+    return response
+})
 
 export const gridSlice = createSlice({
     name: 'grid',
     initialState: { //when where can I fetch?
-        value: [
-            {
-                id: 1,
-                url: "https://picsum.photos/id/1/300"
-            },
-            {
-                id: 2,
-                url: "https://picsum.photos/id/2/300"
-            },
-            {
-                id: 3,
-                url: "https://picsum.photos/id/3/300"
-            },
-            {
-                id: 4,
-                url: "https://picsum.photos/id/4/300"
-            },
-            {
-                id: 5,
-                url: "https://picsum.photos/id/5/300"
-            },
-            {
-                id: 6,
-                url: "https://picsum.photos/id/6/300"
-            },
-            {
-                id: 7,
-                url: "https://picsum.photos/id/7/300"
-            },
-        ]
+        posts: [],
+        status: 'idle',
+        error: null
     },
     reducers: {
         moveCard: (state, action) => {
-            const dragCard = state.value[action.payload.dragIndex]
-            state.value.splice(action.payload.dragIndex, 1)
-            state.value.splice(action.payload.hoverIndex, 0, dragCard)
+            // console.log(action.payload)
+            const dragCard = state.posts[action.payload.dragIndex]
+            state.posts.splice(action.payload.dragIndex, 1)
+            state.posts.splice(action.payload.hoverIndex, 0, dragCard)
+            console.log(state.posts)
+            console.log("state.posts")
         }
-    }
+    },
+    extraReducers: {
+        [fetchPosts.pending]: (state, action) => {
+            console.log("loading")
+            state.status = 'loading'
+        },
+        [fetchPosts.fulfilled]: (state, action) => {
+            state.status = 'succeeded'
+            // console.log("succeed")
+            // console.log(action.payload)
+            // console.log(action.payload.slice().sort((a, b) => a.position < b.position))
+            // console.log("sorted")
+            state.posts = state.posts.concat(action.payload.sort((a, b) => a.position < b.position))
+        },
+        [fetchPosts.rejected]: (state, action) => {
+            console.log("failed")
+            state.status = 'failed'
+            state.error = action.error.message
+        }
+    },
 })
+
+
 
 export const { moveCard } = gridSlice.actions
 
 export default gridSlice.reducer
 
-export const selectGrid = state => state.grid.value
+export const selectGrid = state => state.grid.posts

@@ -1,6 +1,6 @@
-// import React, {useState, useCallback} from 'react'
-import { useSelector } from 'react-redux'
-import { moveCard, selectGrid } from '../reducers/gridSlice'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { moveCard, selectGrid, fetchPosts } from '../reducers/gridSlice'
 import { DndProvider, TouchTransition, MouseTransition } from 'react-dnd-multi-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { TouchBackend } from 'react-dnd-touch-backend'
@@ -28,11 +28,25 @@ const GridGallery = () => {
         ],
     }
 
+    const dispatch = useDispatch()
+
     const images = useSelector(selectGrid)
 
+    const gridStatus = useSelector(state => state.grid.status)
+
+    useEffect(() => {
+        if (gridStatus === 'idle') {
+            // console.log("he1y")
+
+            dispatch(fetchPosts())
+        }
+    }, [gridStatus, dispatch])
+
     const renderCard = (image, index) => {
+        console.log(images)
+        console.log("render")
         return (
-                <GridImage key={image.id} index={index} id={image.id} moveCard={moveCard} />
+                <GridImage key={image.id} index={index} id={image.postId} url={image.image} moveCard={moveCard} />
             );
     };
 

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import ITEM_TYPE from '../data/types'
 import styles from '../styles/gridgallery.module.css'
 
-const GridImage = ({ id, index, moveCard }) => {
+const GridImage = ({ id, url, index, moveCard }) => {
     const ref = useRef(null)
     const dispatch = useDispatch();
     
@@ -22,7 +22,9 @@ const GridImage = ({ id, index, moveCard }) => {
                 return;
             }
             const dragIndex = item.index;
+            // console.log("dragIndex: ", dragIndex)
             const hoverIndex = index;
+            // console.log("hoverIndex: ", hoverIndex)
 
             // Don't replace items with themselves
             if (dragIndex === hoverIndex) {
@@ -74,7 +76,7 @@ const GridImage = ({ id, index, moveCard }) => {
     return (
         <div style={{opacity}} ref={ref} data-handler-id={handlerId}>
             <Link to={"/edit/"+ id.toString()}>
-                    <img className={styles.gridCell} src={"https://picsum.photos/300?random=" + id.toString()} alt="random picsum" />
+                    <img className={styles.gridCell} src={url} alt="random picsum" />
             </Link>
         </div>
     )
