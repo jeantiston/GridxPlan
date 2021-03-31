@@ -37,7 +37,8 @@ export const gridSlice = createSlice({
             // console.log(action.payload)
             // console.log(action.payload.slice().sort((a, b) => a.position < b.position))
             // console.log("sorted")
-            state.posts = state.posts.concat(action.payload.sort((a, b) => a.position < b.position))
+            // state.posts = state.posts.concat(action.payload.sort((a, b) => a.position < b.position))
+            state.posts = state.posts.concat(action.payload)
         },
         [fetchPosts.rejected]: (state, action) => {
             console.log("failed")

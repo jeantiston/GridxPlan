@@ -3,9 +3,11 @@
 
 import { configureStore } from '@reduxjs/toolkit'
 import gridReducer from '../reducers/gridSlice'
+import accountsReducer from '../reducers/accountsSlice'
 
 export default configureStore({
     reducer: {
-        grid: gridReducer
+        grid: gridReducer,
+        accounts: accountsReducer
     }
 })

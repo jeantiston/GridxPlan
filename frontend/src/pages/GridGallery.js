@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { moveCard, selectGrid, fetchPosts } from '../reducers/gridSlice'
+import { selectAccounts, fetchAccounts, selectAccountsStatus, selectCurrentAccount } from '../reducers/accountsSlice'
+
 import { DndProvider, TouchTransition, MouseTransition } from 'react-dnd-multi-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { TouchBackend } from 'react-dnd-touch-backend'
@@ -33,14 +36,20 @@ const GridGallery = () => {
     const images = useSelector(selectGrid)
 
     const gridStatus = useSelector(state => state.grid.status)
+    const accountsStatus = useSelector(selectAccountsStatus)
+    const currentAccount = useSelector(selectCurrentAccount)
+
+    useEffect(() => {
+        if (accountsStatus === 'idle') {
+            dispatch(fetchAccounts())
+        }
+    }, [accountsStatus, dispatch]) //why dispatch?
 
     useEffect(() => {
         if (gridStatus === 'idle') {
-            // console.log("he1y")
-
             dispatch(fetchPosts())
         }
-    }, [gridStatus, dispatch])
+    }, [currentAccount]) 
 
     const renderCard = (image, index) => {
         console.log(images)
