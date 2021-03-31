@@ -46,7 +46,7 @@ const GridGallery = () => {
     }, [accountsStatus, dispatch]) //why dispatch?
 
     useEffect(() => {
-        if (accountsStatus === 'succeeded') {
+        if (gridStatus === 'idle' && accountsStatus === 'succeeded') {
             console.log("fetchPosts")
             console.log(currentAccount)
             console.log(accountsStatus)

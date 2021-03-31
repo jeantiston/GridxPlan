@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { client } from '../data/client'
+import { gridSlice } from "./gridSlice";
 
-export const fetchAccounts = createAsyncThunk('account/fetchAccounts', async () => {
+export const fetchAccounts = createAsyncThunk('accounts/fetchAccounts', async () => {
     const response = await client.get('/api/accounts')
     return response
 })
@@ -14,7 +15,13 @@ export const accountsSlice = createSlice({
         status: 'idle',
         error: null
     },
-    reducers: {},
+    reducers: {
+        switchAccount: (state, action) => {
+            console.log("action")
+            console.log(action)
+            state.currentAccount = action.payload
+        }
+    },
     extraReducers: {
         [fetchAccounts.pending]: (state, action) => {
             console.log("account:loading")
@@ -36,6 +43,8 @@ export const accountsSlice = createSlice({
 
     }
 })
+
+export const { switchAccount } = accountsSlice.actions
 
 export default accountsSlice.reducer
 
