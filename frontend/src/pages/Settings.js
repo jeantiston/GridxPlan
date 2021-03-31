@@ -3,12 +3,36 @@ import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAccounts, switchAccount } from '../reducers/accountsSlice'
+import { fetchPosts } from '../reducers/gridSlice'
+
+import { useHistory } from 'react-router-dom'
+
 import styles from '../styles/settings.module.css'
 
 const Settings = () => {
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => console.log(data);
     console.log(errors);
+
+    const accounts = useSelector(selectAccounts)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    // const currentAccount = useSelector(selectCurrentAccount)
+
+    const handleSwitch = account => {
+        dispatch(switchAccount(account))
+        dispatch(fetchPosts(account.username))
+        history.push("/")
+    }
+
+    const renderAccounts = accounts.map((account, i) => {
+        return (
+                <p key={i}  onClick={ () => handleSwitch(account) } >@{ account.username }</p>
+                // <button key={i}  onClick={ () => dispatch(switchAccount(account)) } >@{ account.username }</button>
+            )
+    })
 
     return (
         <div className={styles.settings}>
@@ -27,9 +51,7 @@ const Settings = () => {
                 <div className={styles.form}>
                     <div className={styles.list}>
                         <h2> Accounts </h2>
-                        <p>@prettypatio</p>
-                        <p>@flyingfiesta</p>
-                        <p>@excitingemu</p>
+                        { renderAccounts }
                     </div>
                     <input type="text" placeholder="instagram username" name="account" ref={register} />
                 </div>

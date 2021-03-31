@@ -31,7 +31,7 @@ export const gridSlice = createSlice({
         },
         [fetchPosts.fulfilled]: (state, action) => {
             state.status = 'succeeded'
-            state.posts = state.posts.concat(action.payload)
+            state.posts = action.payload
         },
         [fetchPosts.rejected]: (state, action) => {
             console.log("failed")
