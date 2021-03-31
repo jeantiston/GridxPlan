@@ -1,29 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { client } from '../data/client'
 
-export const fetchPosts = createAsyncThunk('grid/fetchGrid', async () => {
-    console.log("he2y")
-
-    const response = await client.get('/api/grid/jeloufish')
+export const fetchPosts = createAsyncThunk('grid/fetchGrid', async account => {
+    const url = '/api/grid/' + account
+    console.log(account)
+    const response = await client.get(url)
     // console.log(response)
     return response
 })
 
 export const gridSlice = createSlice({
     name: 'grid',
-    initialState: { //when where can I fetch?
+    initialState: { 
         posts: [],
         status: 'idle',
         error: null
     },
     reducers: {
         moveCard: (state, action) => {
-            // console.log(action.payload)
             const dragCard = state.posts[action.payload.dragIndex]
             state.posts.splice(action.payload.dragIndex, 1)
             state.posts.splice(action.payload.hoverIndex, 0, dragCard)
-            console.log(state.posts)
-            console.log("state.posts")
+
         }
     },
     extraReducers: {
@@ -33,11 +31,6 @@ export const gridSlice = createSlice({
         },
         [fetchPosts.fulfilled]: (state, action) => {
             state.status = 'succeeded'
-            // console.log("succeed")
-            // console.log(action.payload)
-            // console.log(action.payload.slice().sort((a, b) => a.position < b.position))
-            // console.log("sorted")
-            // state.posts = state.posts.concat(action.payload.sort((a, b) => a.position < b.position))
             state.posts = state.posts.concat(action.payload)
         },
         [fetchPosts.rejected]: (state, action) => {

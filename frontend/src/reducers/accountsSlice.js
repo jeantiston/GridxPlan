@@ -10,7 +10,7 @@ export const accountsSlice = createSlice({
     name: 'accounts',
     initialState: {
         accounts: [],
-        currentAccount: '',
+        currentAccount: {},
         status: 'idle',
         error: null
     },
@@ -25,6 +25,8 @@ export const accountsSlice = createSlice({
             state.status = 'succeeded'
             state.accounts = state.accounts.concat(action.payload)
             state.currentAccount = state.accounts[0]
+            console.log(state.currentAccount)
+
         },
         [fetchAccounts.rejected]: (state, action) => {
             console.log("account:failed")

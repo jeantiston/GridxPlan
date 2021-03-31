@@ -46,10 +46,14 @@ const GridGallery = () => {
     }, [accountsStatus, dispatch]) //why dispatch?
 
     useEffect(() => {
-        if (gridStatus === 'idle') {
-            dispatch(fetchPosts())
+        if (accountsStatus === 'succeeded') {
+            console.log("fetchPosts")
+            console.log(currentAccount)
+            console.log(accountsStatus)
+            console.log("fetchPosts:end")
+            dispatch(fetchPosts(currentAccount.username))
         }
-    }, [currentAccount]) 
+    }, [currentAccount, accountsStatus]) 
 
     const renderCard = (image, index) => {
         console.log(images)
