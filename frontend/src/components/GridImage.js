@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import ITEM_TYPE from '../data/types'
 import styles from '../styles/gridgallery.module.css'
 
-const GridImage = ({ id, url, index, moveCard }) => {
+const GridImage = ({ id, url, index }) => {
     const ref = useRef(null)
     const dispatch = useDispatch();
     const grid = useSelector(selectGrid)

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { moveCard, selectGrid, fetchPosts } from '../reducers/gridSlice'
+import { selectGrid, fetchPosts } from '../reducers/gridSlice'
 import { selectAccounts, fetchAccounts, selectAccountsStatus, selectCurrentAccount } from '../reducers/accountsSlice'
 
 import { DndProvider, TouchTransition, MouseTransition } from 'react-dnd-multi-backend'
@@ -59,7 +59,7 @@ const GridGallery = () => {
         console.log("render")
         console.log(images)
         return (
-                <GridImage key={image.id} index={index} id={image.postId} url={image.image} moveCard={moveCard} />
+                <GridImage key={image.id} index={index} id={image.postId} url={image.image} />
             );
     };
 
