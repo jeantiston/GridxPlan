@@ -47,17 +47,17 @@ const GridGallery = () => {
 
     useEffect(() => {
         if (gridStatus === 'idle' && accountsStatus === 'succeeded') {
-            console.log("fetchPosts")
-            console.log(currentAccount)
-            console.log(accountsStatus)
-            console.log("fetchPosts:end")
+            // console.log("fetchPosts")
+            // console.log(currentAccount)
+            // console.log(accountsStatus)
+            // console.log("fetchPosts:end")
             dispatch(fetchPosts(currentAccount.username))
         }
     }, [currentAccount, accountsStatus]) 
 
     const renderCard = (image, index) => {
-        console.log(images)
         console.log("render")
+        console.log(images)
         return (
                 <GridImage key={image.id} index={index} id={image.postId} url={image.image} moveCard={moveCard} />
             );

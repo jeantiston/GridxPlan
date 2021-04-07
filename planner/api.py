@@ -29,6 +29,7 @@ def accounts(request):
     return HttpResponse("beep")
     
 
+@csrf_exempt
 def grid(request, account):
     print(request)
     print(request.user)
@@ -38,12 +39,21 @@ def grid(request, account):
         return JsonResponse({"error": "Account not found."}, status=404)
 
     if request.method == "GET":
-        # console.log("grid")
         return JsonResponse([cell.serialize() for cell in cells], safe=False)
 
     elif request.method == "PUT":
-        pass
-        # console.log("moving a cell")
+
+        grid = json.loads(request.body).get("grid")
+        grid_len = len(grid)
+
+        for index, cell in enumerate(grid):
+            modifiedCell = Cell.objects.get(pk=cell['postId'])
+            modifiedCell.position = grid_len
+            modifiedCell.save()
+            grid_len -= 1
+
+        return JsonResponse(grid, safe=False)
+
 
     else:
         return JsonResponse({

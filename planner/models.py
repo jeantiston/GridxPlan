@@ -31,7 +31,7 @@ class Cell(models.Model):
         return {
             "image": self.image,
             # "account": self.account.username,
-            "position": self.position,
+            # "position": self.position,
             "postId": self.post.pk
         }
 
