@@ -24,15 +24,13 @@ def accounts(request):
         return JsonResponse({
             "error": "GET request required."
         }, status=400)
-    print(ig_accounts)
-    print(request.user.id)
+
     return HttpResponse("beep")
     
 
 @csrf_exempt
 def grid(request, account):
-    print(request)
-    print(request.user)
+
     try:
         cells = Cell.objects.filter(account__username__icontains=account)
     except Cell.DoesNotExist:

@@ -43,13 +43,9 @@ export const gridSlice = createSlice({
         },
         [moveCell.fulfilled]: (state, action) => {
             state.status = 'succeeded'
-            console.log("moveCell success")
-            console.log(action.payload)
-            console.log("moveCell success end")
             state.posts = action.payload
         },
         [moveCell.rejected]: (state, action) => {
-            console.log("failed")
             state.status = 'failed'
             state.error = action.error.message
         },
