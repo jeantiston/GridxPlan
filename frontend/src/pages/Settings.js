@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAccounts, switchAccount } from '../reducers/accountsSlice'
+import { selectAccounts, switchAccount, selectCurrentAccount } from '../reducers/accountsSlice'
 import { fetchPosts } from '../reducers/gridSlice'
 
 import { useHistory } from 'react-router-dom'
@@ -19,7 +19,7 @@ const Settings = () => {
     const accounts = useSelector(selectAccounts)
     const dispatch = useDispatch()
     const history = useHistory()
-    // const currentAccount = useSelector(selectCurrentAccount)
+    const currentAccount = useSelector(selectCurrentAccount)
 
     const handleSwitch = account => {
         dispatch(switchAccount(account))
@@ -28,10 +28,16 @@ const Settings = () => {
     }
 
     const renderAccounts = accounts.map((account, i) => {
+        console.log("renderAcc")
+        console.log(account.username)
+        console.log(currentAccount)
+        console.log("endrender")
+        if (account.username === currentAccount.username ) {
+            return ( <b key={i}  onClick={ () => handleSwitch(account) } >@{ account.username }</b> )
+        }
         return (
-                <p key={i}  onClick={ () => handleSwitch(account) } >@{ account.username }</p>
-                // <button key={i}  onClick={ () => dispatch(switchAccount(account)) } >@{ account.username }</button>
-            )
+            <p key={i}  onClick={ () => handleSwitch(account) } >@{ account.username }</p>
+        )
     })
 
     return (
@@ -47,13 +53,16 @@ const Settings = () => {
                     </div>
                     <input type="email" placeholder="email" name="teammate" ref={register} />
                 </div>
+            </form>
 
+            <form onSubmit={handleSubmit(onSubmit)} className={styles.editPost}>
                 <div className={styles.form}>
                     <div className={styles.list}>
                         <h2> Accounts </h2>
                         { renderAccounts }
                     </div>
                     <input type="text" placeholder="instagram username" name="account" ref={register} />
+                    <button type="submit">Add</button>
                 </div>
             </form>
             <div className={styles.logoutButton}>
