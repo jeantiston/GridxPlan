@@ -9,8 +9,8 @@ from datetime import datetime
 
 from .models import User, Team, Account, Cell, Post
 
-# @login_required
-
+@login_required
+@csrf_exempt
 def accounts(request):
     try:
         ig_accounts = Account.objects.filter(user=request.user.id)
@@ -20,6 +20,21 @@ def accounts(request):
     if request.method == "GET":
         return JsonResponse([account.serialize() for account in ig_accounts], safe=False)
         
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        user = User.objects.get(pk=request.user.id)
+
+        account = Account.objects.create(username = data.get("account"))
+        account.user.add(user)
+
+        return JsonResponse({
+            "message": "Account added successfully", 
+            "timestamp": datetime.now().strftime("%b %-d %Y, %-I:%M %p") , 
+            "id": account.id,
+            "account": account.serialize()
+        }, status=201)
+
     else:
         return JsonResponse({
             "error": "GET request required."

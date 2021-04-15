@@ -1,10 +1,10 @@
-import React from 'react'
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react'
+// import { useForm } from 'react-hook-form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 
 import { useDispatch, useSelector } from 'react-redux';
-import { selectAccounts, switchAccount, selectCurrentAccount } from '../reducers/accountsSlice'
+import { selectAccounts, switchAccount, selectCurrentAccount, addAccount } from '../reducers/accountsSlice'
 import { fetchPosts } from '../reducers/gridSlice'
 
 import { useHistory } from 'react-router-dom'
@@ -12,9 +12,22 @@ import { useHistory } from 'react-router-dom'
 import styles from '../styles/settings.module.css'
 
 const Settings = () => {
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log(errors);
+
+    const [newTeammate, setNewTeammate] = useState("")
+    const [newAccount, setNewAccount] = useState("")
+
+
+    const handleNewAccount = e => {
+        e.preventDefault()
+        console.log("New Account")
+        console.log(newAccount)
+        dispatch(addAccount(newAccount))
+    }
+
+    const handleNewTeammate = e => {
+        e.preventDefault()
+        console.log("New Teammate")
+    }
 
     const accounts = useSelector(selectAccounts)
     const dispatch = useDispatch()
@@ -42,7 +55,7 @@ const Settings = () => {
 
     return (
         <div className={styles.settings}>
-            <form onSubmit={handleSubmit(onSubmit)} className={styles.editPost}>
+            <form onSubmit={handleNewTeammate} className={styles.editPost}>
             {/* <h1>Settings</h1> */}
                 <div className={styles.form}>
                     <div className={styles.list}>
@@ -51,17 +64,17 @@ const Settings = () => {
                         <p>molly (molly@socialmedia.agecy)</p>
                         <p>mike (mike@socialmedia.agency)</p>
                     </div>
-                    <input type="email" placeholder="email" name="teammate" ref={register} />
+                    <input type="email" placeholder="email" name="teammate" value={newTeammate} onChange={e => setNewTeammate(e.target.value)} />
                 </div>
             </form>
 
-            <form onSubmit={handleSubmit(onSubmit)} className={styles.editPost}>
+            <form onSubmit={handleNewAccount} className={styles.editPost}>
                 <div className={styles.form}>
                     <div className={styles.list}>
                         <h2> Accounts </h2>
                         { renderAccounts }
                     </div>
-                    <input type="text" placeholder="instagram username" name="account" ref={register} />
+                    <input type="text" placeholder="instagram username" name="account" value={newAccount} onChange={e => setNewAccount(e.target.value)} />
                     <button type="submit">Add</button>
                 </div>
             </form>

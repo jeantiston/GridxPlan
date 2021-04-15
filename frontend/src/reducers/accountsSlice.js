@@ -7,6 +7,11 @@ export const fetchAccounts = createAsyncThunk('accounts/fetchAccounts', async ()
     return response
 })
 
+export const addAccount = createAsyncThunk('account/addAccount', async ( newAccount ) => {
+    const response = await client.post('/api/accounts', { account: newAccount })
+    return response
+})
+
 export const accountsSlice = createSlice({
     name: 'accounts',
     initialState: {
@@ -33,13 +38,27 @@ export const accountsSlice = createSlice({
             state.accounts = state.accounts.concat(action.payload)
             state.currentAccount = state.accounts[0]
             console.log(state.currentAccount)
-
         },
         [fetchAccounts.rejected]: (state, action) => {
             console.log("account:failed")
             state.status = 'failed'
             state.error = action.error.message
-        }
+        },
+
+        [addAccount.pending]: (state, action) => {
+            console.log("addAccount:loading")
+            state.status = 'loading'
+        },
+        [addAccount.fulfilled]: (state, action) => {
+            state.status = 'succeeded'
+            console.log(action.payload)
+            state.accounts.push(action.payload.account)
+        },
+        [addAccount.rejected]: (state, action) => {
+            console.log("addAccount:failed")
+            state.status = 'failed'
+            state.error = action.error.message
+        },
 
     }
 })
