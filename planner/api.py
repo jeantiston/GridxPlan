@@ -9,24 +9,31 @@ from datetime import datetime
 
 from .models import User, Team, Account, Cell, Post
 
+#GET - Fetch all the team members
+#POST - Add new team members
+#DELETE - delete team members
+@login_required
+@csrf_exempt
+def team(request):
+    pass
+
+#GET - For fetching accounts that a user owns
+#POST - For adding new accounts
 @login_required
 @csrf_exempt
 def accounts(request):
-    try:
-        ig_accounts = Account.objects.filter(user=request.user.id)
-    except Account.DoesNotExist:
-        return JsonResponse({"error": "Error"}, status=404)
 
     if request.method == "GET":
+        try:
+            ig_accounts = Account.objects.filter(owner=request.user.id)
+        except Account.DoesNotExist:
+            return JsonResponse({"error": "Error"}, status=404)
         return JsonResponse([account.serialize() for account in ig_accounts], safe=False)
         
     if request.method == "POST":
         data = json.loads(request.body)
-
         user = User.objects.get(pk=request.user.id)
-
-        account = Account.objects.create(username = data.get("account"))
-        account.user.add(user)
+        account = Account.objects.create(username = data.get("account"), owner = user)
 
         return JsonResponse({
             "message": "Account added successfully", 
@@ -37,12 +44,14 @@ def accounts(request):
 
     else:
         return JsonResponse({
-            "error": "GET request required."
+            "error": "GET or POST request required."
         }, status=400)
 
     return HttpResponse("beep")
     
 
+#GET - fetch all the cells of an account
+#PUT - moving the cells' position
 @csrf_exempt
 def grid(request, account):
 

@@ -13,8 +13,8 @@ class Team(models.Model):
 
 class Account(models.Model):
     username = models.CharField(max_length=30, blank=False, null=False, default="default_account")
-    user = models.ManyToManyField(User, related_name='user_accounts', blank=True)
-    team = models.ForeignKey(Team, blank=True, null=True, related_name="team_accounts", on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='owner_accounts', blank=True, null=True, on_delete=models.CASCADE)
+    users = models.ManyToManyField(User, blank=True, related_name="team_accounts")
 
     def serialize(self):
         return {
