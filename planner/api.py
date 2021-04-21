@@ -15,7 +15,21 @@ from .models import User, Team, Account, Cell, Post
 @login_required
 @csrf_exempt
 def team(request):
-    pass
+    if request.method == "GET":
+        try:
+            team_members = Team.objects.get(owner=request.user.id)
+        except Team.DoesNotExist:
+            return JsonResponse({"error": "Error"}, status=404)
+
+        return JsonResponse(team_members.serialize(), safe=False)
+
+    if request.method == "POST":
+        pass
+    else:
+        return JsonResponse({
+            "error": "GET or POST request required."
+        }, status=400)
+
 
 #GET - For fetching accounts that a user owns
 #POST - For adding new accounts

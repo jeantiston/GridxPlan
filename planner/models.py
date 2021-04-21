@@ -11,6 +11,18 @@ class Team(models.Model):
     owner = models.ForeignKey(User, related_name="team_owner", on_delete=models.CASCADE)
     member = models.ManyToManyField(User, related_name='member_teams', blank=True)
 
+    def serialize(self):
+        print("team_members")
+        print(self.member.all())
+
+        return [
+            {
+                "id": mem.id,
+                "username": mem.username,
+                "email": mem.email
+            } for mem in self.member.all()
+        ]
+
 class Account(models.Model):
     username = models.CharField(max_length=30, blank=False, null=False, default="default_account")
     owner = models.ForeignKey(User, related_name='owner_accounts', blank=True, null=True, on_delete=models.CASCADE)

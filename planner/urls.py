@@ -15,5 +15,6 @@ urlpatterns = [
     #API
     path("api/grid/<str:account>", api.grid, name="grid"),
     path("api/post/<int:post_id>", api.post, name="post"),
-    path("api/accounts", api.accounts, name="accounts")
+    path("api/accounts", api.accounts, name="accounts"),
+    path("api/team", api.team, name="team"),
 ]
