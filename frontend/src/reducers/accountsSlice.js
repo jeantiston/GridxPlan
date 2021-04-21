@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { client } from '../data/client'
-import { gridSlice } from "./gridSlice";
 
 export const fetchAccounts = createAsyncThunk('accounts/fetchAccounts', async () => {
     const response = await client.get('/api/accounts')
