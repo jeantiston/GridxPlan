@@ -17,14 +17,45 @@ from .models import User, Team, Account, Cell, Post
 def team(request):
     if request.method == "GET":
         try:
-            team_members = Team.objects.get(owner=request.user.id)
+            team_members = Team.objects.filter(owner=request.user.id)
+            print(team_members)
+            for mem in team_members:
+                print(mem.member.all())
         except Team.DoesNotExist:
             return JsonResponse({"error": "Error"}, status=404)
 
-        return JsonResponse(team_members.serialize(), safe=False)
+        return HttpResponse("beep")
+        team_members_json = [{
+            "id": mem.id,
+            "username": mem.username,
+            "email": mem.email
+        } for mem in team_members ]
+        return JsonResponse(team_members_json, safe=False)
 
     if request.method == "POST":
-        pass
+        try:
+            data = json.loads(request.body)
+            owner = User.objects.get(pk=request.user.id)
+            new_member = User.objects.get(email=data.get("email"))
+
+            member = Team.objects.create(owner=owner)
+            member.member.set([new_member])
+
+            return JsonResponse({
+            "message": "Team member added successfully", 
+            "timestamp": datetime.now().strftime("%b %-d %Y, %-I:%M %p") , 
+            "id": member.id,
+            "member": {
+                "id": member.id,
+                "username": member.username,
+                "email": member.email
+            }
+        }, status=201)
+
+        except Team.DoesNotExist:
+            return JsonResponse({"error": "User not found"}, status=404)
+
+
     else:
         return JsonResponse({
             "error": "GET or POST request required."

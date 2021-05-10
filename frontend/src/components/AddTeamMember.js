@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux';
-import { selectTeamStatus } from '../reducers/teamSlice'
+import { useDispatch } from 'react-redux';
+import { addTeamMember } from '../reducers/teamSlice'
 
 import styles from '../styles/settings.module.css'
 
@@ -14,6 +14,7 @@ const AddTeamMember = () => {
     const handleNewTeammate = e => {
         e.preventDefault()
         console.log("New Teammate")
+        dispatch(addTeamMember(newTeammate))
     }
 
     return (

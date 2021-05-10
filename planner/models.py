@@ -12,8 +12,6 @@ class Team(models.Model):
     member = models.ManyToManyField(User, related_name='member_teams', blank=True)
 
     def serialize(self):
-        print("team_members")
-        print(self.member.all())
 
         return [
             {
