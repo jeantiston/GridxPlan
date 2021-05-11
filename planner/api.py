@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-# from django.core.paginator import Paginator
 
 import json
 from datetime import datetime
@@ -20,15 +19,6 @@ def team(request):
             team = Team.objects.get(owner=request.user.id)
         except Team.DoesNotExist:
             return JsonResponse({"error": "Error"}, status=404)
-
-        print(team.serialize())
-
-        # team_members_json = [{
-        #     "id": mem.id,
-        #     "username": mem.username,
-        #     "email": mem.email
-        # } for mem in team.member.all() ]
-        # return JsonResponse(team_members_json, safe=False)
 
         return JsonResponse(team.serialize(), safe=False)
 
