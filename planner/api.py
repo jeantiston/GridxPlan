@@ -28,17 +28,21 @@ def team(request):
             owner = User.objects.get(pk=request.user.id)
             new_member = User.objects.get(email=data.get("email"))
 
-            member = Team.objects.create(owner=owner)
-            member.member.set([new_member])
+            team_test = Team.objects.filter(owner=owner)
+            if not team_test:
+                team = Team.objects.create(owner=owner)
+            else:
+                team = team_test[0]
+
+            team.member.add(new_member)
 
             return JsonResponse({
             "message": "Team member added successfully", 
             "timestamp": datetime.now().strftime("%b %-d %Y, %-I:%M %p") , 
-            "id": member.id,
             "member": {
-                "id": member.id,
-                "username": member.username,
-                "email": member.email
+                "id": new_member.id,
+                "username": new_member.username,
+                "email": new_member.email
             }
         }, status=201)
 
