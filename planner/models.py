@@ -8,8 +8,8 @@ class User(AbstractUser):
     pass
 
 class Team(models.Model):
-    owner = models.ForeignKey(User, related_name="team_owner", on_delete=models.CASCADE)
-    member = models.ManyToManyField(User, related_name='member_teams', blank=True)
+    owner = models.OneToOneField('User', related_name='team_owner', on_delete=models.CASCADE)
+    member = models.ManyToManyField('User', related_name='member_teams', blank=True)
 
     def serialize(self):
 
@@ -20,21 +20,27 @@ class Team(models.Model):
                 "email": mem.email
             } for mem in self.member.all()
         ]
+    
+    def __str__(self):
+        return self.owner.username
 
 class Account(models.Model):
-    username = models.CharField(max_length=30, blank=False, null=False, default="default_account")
-    owner = models.ForeignKey(User, related_name='owner_accounts', blank=True, null=True, on_delete=models.CASCADE)
-    users = models.ManyToManyField(User, blank=True, related_name="team_accounts")
+    username = models.CharField(max_length=30, blank=False, null=False)
+    owner = models.ForeignKey('User', related_name='owner_accounts', blank=True, on_delete=models.CASCADE)
+    users = models.ManyToManyField('User', blank=True, related_name='team_accounts')
 
     def serialize(self):
         return {
             "id": self.id,
             "username": self.username
         }
+    
+    def __str__(self):
+        return self.username
 
 class Cell(models.Model):
     image = models.URLField(blank=False, null=False)
-    account = models.ForeignKey(Account, related_name="account_grid", on_delete=models.CASCADE)
+    account = models.ForeignKey('Account', related_name="account_grid", on_delete=models.CASCADE)
     position = models.IntegerField()
 
     def serialize(self):
@@ -86,5 +92,6 @@ def save_cell_post(sender, instance, **kwargs):
 
 class HashtagGroups(models.Model):
     caption = models.TextField(blank=False, null=False, max_length=2200)
+    account = models.ForeignKey('Account', related_name="account_hashtags", on_delete=models.CASCADE)
 
 
