@@ -17,20 +17,20 @@ from .models import User, Team, Account, Cell, Post
 def team(request):
     if request.method == "GET":
         try:
-            team_members = Team.objects.filter(owner=request.user.id)
-            print(team_members)
-            for mem in team_members:
-                print(mem.member.all())
+            team = Team.objects.get(owner=request.user.id)
         except Team.DoesNotExist:
             return JsonResponse({"error": "Error"}, status=404)
 
-        return HttpResponse("beep")
-        team_members_json = [{
-            "id": mem.id,
-            "username": mem.username,
-            "email": mem.email
-        } for mem in team_members ]
-        return JsonResponse(team_members_json, safe=False)
+        print(team.serialize())
+
+        # team_members_json = [{
+        #     "id": mem.id,
+        #     "username": mem.username,
+        #     "email": mem.email
+        # } for mem in team.member.all() ]
+        # return JsonResponse(team_members_json, safe=False)
+
+        return JsonResponse(team.serialize(), safe=False)
 
     if request.method == "POST":
         try:
