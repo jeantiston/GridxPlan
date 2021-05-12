@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { client } from '../data/client'
 
-export const fetchTeamMembers = createAsyncThunk('team/fetchTeamMembers', async () => {
-    const response = await client.get('/api/team')
+export const fetchTeamMembers = createAsyncThunk('team/fetchTeamMembers', async (account) => {
+    const response = await client.get('/api/team/' + account.username)
     return response
 })
 
-export const addTeamMember = createAsyncThunk('team/addTeamMember', async (email) => {
-    const response = await client.post('/api/team', { email: email })
+export const addTeamMember = createAsyncThunk('team/addTeamMember', async (params) => {
+    console.log("addTeamMember")
+    console.log(params)
+    const response = await client.post('/api/team/' + params.account.username , { email: params.email })
     return response
 })
 

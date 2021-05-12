@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 
-import { useDispatch } from 'react-redux';
-import { addTeamMember } from '../reducers/teamSlice'
+import { useDispatch, useSelector } from 'react-redux';
+import { addTeamMember, selectTeamMembers } from '../reducers/teamSlice'
+import { selectCurrentAccount } from '../reducers/accountsSlice'
 
 import styles from '../styles/settings.module.css'
 
@@ -10,11 +11,28 @@ const AddTeamMember = () => {
     const dispatch = useDispatch()
 
     const [newTeammate, setNewTeammate] = useState("")
+    const currentAccount = useSelector(selectCurrentAccount)
+    const members = useSelector(selectTeamMembers)
+
+    const isInTeam = email => {
+        let mem
+        for( mem of members ){
+            if (mem.email === email){
+                return true
+            }
+        }
+        return false
+    }
 
     const handleNewTeammate = e => {
         e.preventDefault()
-        console.log("New Teammate")
-        dispatch(addTeamMember(newTeammate))
+
+
+        if (!isInTeam(newTeammate)){
+            console.log("New Teammate")
+            console.log(currentAccount)
+            dispatch(addTeamMember({ "email": newTeammate, "account": currentAccount}))
+        }
     }
 
     return (
