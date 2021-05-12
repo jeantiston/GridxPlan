@@ -29,8 +29,6 @@ const AddTeamMember = () => {
 
 
         if (!isInTeam(newTeammate)){
-            console.log("New Teammate")
-            console.log(currentAccount)
             dispatch(addTeamMember({ "email": newTeammate, "account": currentAccount}))
         }
     }
