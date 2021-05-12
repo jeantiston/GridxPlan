@@ -33,7 +33,8 @@ class Team(models.Model):
             {
                 "id": mem.id,
                 "username": mem.username,
-                "email": mem.email
+                "email": mem.email,
+                "owner": 0
             } for mem in self.member.all()
         ]
     

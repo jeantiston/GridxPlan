@@ -18,23 +18,29 @@ def team(request, account):
         try:
             team = Team.objects.get(account__username=account)
         except Team.DoesNotExist:
-            return JsonResponse({"error": "Error"}, status=404)
+            return JsonResponse({"error": "Team not found"}, status=404)
 
-        return JsonResponse(team.serialize(), safe=False)
+        owner_json = {
+            "id": team.account.owner.id,
+            "username": team.account.owner.username,
+            "email": team.account.owner.email,
+            "owner": 1
+        }
+        team_json = team.serialize() + [owner_json]
+
+        return JsonResponse(team_json, safe=False)
 
     if request.method == "POST":
         try:
+            team = Team.objects.get(account__username=account)
             data = json.loads(request.body)
-            owner = User.objects.get(pk=request.user.id)
-            new_member = User.objects.get(email=data.get("email"))
 
-            team_test = Team.objects.filter(owner=owner)
-            if not team_test:
-                team = Team.objects.create(owner=owner)
+            if team.account.owner.id == request.user.id:
+                new_member = User.objects.get(email=data.get("email"))
+                team.member.add(new_member)
+            
             else:
-                team = team_test[0]
-
-            team.member.add(new_member)
+                return JsonResponse({"error": "Forbidden: You don't have permission to add members. Contact account owner."}, status=403)
 
             return JsonResponse({
             "message": "Team member added successfully", 
@@ -47,7 +53,11 @@ def team(request, account):
         }, status=201)
 
         except Team.DoesNotExist:
-            return JsonResponse({"error": "User not found"}, status=404)
+            return JsonResponse({"error": "Team not found"}, status=404)
+        
+        except User.DoesNotExist:
+            return JsonResponse({"error": "Can't add a user not found to a team"}, status=404)
+
 
 
     else:
