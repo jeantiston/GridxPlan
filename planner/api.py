@@ -13,10 +13,10 @@ from .models import User, Team, Account, Cell, Post
 #DELETE - delete team members
 @login_required
 @csrf_exempt
-def team(request):
+def team(request, account):
     if request.method == "GET":
         try:
-            team = Team.objects.get(owner=request.user.id)
+            team = Team.objects.get(account__username=account)
         except Team.DoesNotExist:
             return JsonResponse({"error": "Error"}, status=404)
 

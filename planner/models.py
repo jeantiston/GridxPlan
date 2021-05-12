@@ -7,8 +7,24 @@ from django.dispatch import receiver
 class User(AbstractUser):
     pass
 
+class Account(models.Model):
+    username = models.CharField(max_length=30, blank=False, null=False)
+    owner = models.ForeignKey('User', related_name='owner_accounts', blank=True, on_delete=models.CASCADE)
+    # users = models.ManyToManyField('User', blank=True, related_name='team_accounts')
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "username": self.username,
+            "owner": self.owner.username
+        }
+    
+    def __str__(self):
+        return self.username
+
 class Team(models.Model):
-    owner = models.OneToOneField('User', related_name='team_owner', on_delete=models.CASCADE)
+    account = models.OneToOneField('Account', related_name='team', on_delete=models.CASCADE)
+    # owner = models.OneToOneField('User', related_name='team_owner', on_delete=models.CASCADE)
     member = models.ManyToManyField('User', related_name='member_teams', blank=True)
 
     def serialize(self):
@@ -22,21 +38,16 @@ class Team(models.Model):
         ]
     
     def __str__(self):
-        return self.owner.username
+        return self.account.username
 
-class Account(models.Model):
-    username = models.CharField(max_length=30, blank=False, null=False)
-    owner = models.ForeignKey('User', related_name='owner_accounts', blank=True, on_delete=models.CASCADE)
-    users = models.ManyToManyField('User', blank=True, related_name='team_accounts')
+@receiver(post_save, sender=Account)
+def create_team_account(sender, instance, created, **kwargs):
+    if created:
+        Team.objects.create(account=instance)
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "username": self.username
-        }
-    
-    def __str__(self):
-        return self.username
+@receiver(post_save, sender=Account)
+def save_team_account(sender, instance, **kwargs):
+    instance.team.save()
 
 class Cell(models.Model):
     image = models.URLField(blank=False, null=False)
