@@ -7,8 +7,6 @@ export const fetchTeamMembers = createAsyncThunk('team/fetchTeamMembers', async 
 })
 
 export const addTeamMember = createAsyncThunk('team/addTeamMember', async (params) => {
-    console.log("addTeamMember")
-    console.log(params)
     const response = await client.post('/api/team/' + params.account.username , { email: params.email })
     return response
 })
@@ -29,7 +27,7 @@ export const teamSlice = createSlice({
         [fetchTeamMembers.fulfilled]: (state, action) => {
             console.log("team:succeeded")
             state.status = 'succeeded'
-            state.members = state.members.concat(action.payload)
+            state.members = action.payload
         },
         [fetchTeamMembers.rejected]: (state, action) => {
             console.log("team:failed")

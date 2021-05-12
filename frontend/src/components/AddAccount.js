@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAccounts, switchAccount, selectCurrentAccount, addAccount } from '../reducers/accountsSlice'
 import { fetchPosts } from '../reducers/gridSlice'
+import { fetchTeamMembers } from '../reducers/teamSlice'
 
 import { useHistory } from 'react-router-dom'
 
@@ -28,6 +29,7 @@ const AddAccount = () => {
     const handleSwitch = account => {
         dispatch(switchAccount(account))
         dispatch(fetchPosts(account.username))
+        dispatch(fetchTeamMembers(account))
         history.push("/")
     }
 
