@@ -2,13 +2,12 @@ import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAccounts, selectAccountsStatus } from '../reducers/accountsSlice'
-// import { fetchTeamMembers, selectTeamStatus } from '../reducers/teamSlice'
-
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 
 import AddAccount from '../components/AddAccount'
+import ListAccounts from '../components/ListAccounts'
 import AddTeamMember from '../components/AddTeamMember'
 import ListTeam from '../components/ListTeam'
 
@@ -31,6 +30,7 @@ const Settings = () => {
             < ListTeam />
             < AddTeamMember />
 
+            <ListAccounts />
             < AddAccount />
 
             <div className={styles.logoutButton}>

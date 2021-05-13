@@ -49,7 +49,7 @@ const GridGallery = () => {
         if (gridStatus === 'idle' && accountsStatus === 'succeeded' && currentAccount) {
             dispatch(fetchPosts(currentAccount.username))
         }
-    }, [currentAccount, accountsStatus]) 
+    }, [currentAccount, accountsStatus, dispatch]) 
 
     const renderCard = (image, index) => {
         return (
