@@ -1,21 +1,21 @@
 import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { selectTeamMembers, selectTeamStatus, fetchTeamMembers } from '../reducers/teamSlice'
+import { selectTeamMembers, fetchTeamMembers } from '../reducers/teamSlice'
 import { selectCurrentAccount } from '../reducers/accountsSlice'
 
 import styles from '../styles/settings.module.css'
 
 const ListTeam = () => {
-    const teamStatus = useSelector(selectTeamStatus)
+    // const teamStatus = useSelector(selectTeamStatus)
     const currentAccount = useSelector(selectCurrentAccount)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if (teamStatus === 'idle') {
+        // if (teamStatus === 'idle' || teamStatus === 'failed') {
             dispatch(fetchTeamMembers(currentAccount))
-        }
-    }, [teamStatus, dispatch])
+        // }
+    }, [currentAccount, dispatch])
 
     const members = useSelector(selectTeamMembers)
 

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAccounts, switchAccount, selectCurrentAccount } from '../reducers/accountsSlice'
+import { fetchAccounts, selectAccountsStatus, selectAccounts, switchAccount, selectCurrentAccount } from '../reducers/accountsSlice'
 import { fetchPosts } from '../reducers/gridSlice'
 import { fetchTeamMembers } from '../reducers/teamSlice'
 
@@ -11,8 +11,18 @@ import styles from '../styles/settings.module.css'
 
 const ListAccounts = () => {
 
-    const accounts = useSelector(selectAccounts)
     const dispatch = useDispatch()
+
+    const accountsStatus = useSelector(selectAccountsStatus)
+
+    useEffect(() => {
+        console.log('List Accounts: fetch')
+        if (accountsStatus === 'idle') {
+            dispatch(fetchAccounts())
+        }
+    }, [accountsStatus, dispatch])
+
+    const accounts = useSelector(selectAccounts)
     const history = useHistory()
     const currentAccount = useSelector(selectCurrentAccount)
 

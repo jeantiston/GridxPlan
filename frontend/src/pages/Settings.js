@@ -1,7 +1,4 @@
-import React, { useEffect } from 'react'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { fetchAccounts, selectAccountsStatus } from '../reducers/accountsSlice'
+import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
@@ -15,23 +12,13 @@ import styles from '../styles/settings.module.css'
 
 const Settings = () => {
 
-    const dispatch = useDispatch()
-
-    const accountsStatus = useSelector(selectAccountsStatus)
-
-    useEffect(() => {
-        if (accountsStatus === 'idle') {
-            dispatch(fetchAccounts())
-        }
-    }, [accountsStatus, dispatch])
-
     return (
         <div className={styles.settings}>
-            < ListTeam />
-            < AddTeamMember />
-
             <ListAccounts />
             < AddAccount />
+
+            < ListTeam />
+            < AddTeamMember />
 
             <div className={styles.logoutButton}>
                 <FontAwesomeIcon icon={faPowerOff} size="2x" />
