@@ -16,7 +16,6 @@ const ListAccounts = () => {
     const accountsStatus = useSelector(selectAccountsStatus)
 
     useEffect(() => {
-        console.log('List Accounts: fetch')
         if (accountsStatus === 'idle') {
             dispatch(fetchAccounts())
         }

@@ -27,6 +27,7 @@ export const teamSlice = createSlice({
         [fetchTeamMembers.fulfilled]: (state, action) => {
             console.log("team:succeeded")
             state.status = 'succeeded'
+            state.error = ''
             state.members = action.payload
         },
         [fetchTeamMembers.rejected]: (state, action) => {
@@ -42,6 +43,7 @@ export const teamSlice = createSlice({
         [addTeamMember.fulfilled]: (state, action) => {
             console.log("addTeamMember:succeeded")
             state.status = 'succeeded'
+            state.error = ''
             state.members.push(action.payload.member)
         },
         [addTeamMember.rejected]: (state, action) => {
@@ -57,3 +59,4 @@ export default teamSlice.reducer
 
 export const selectTeamMembers = state => state.team.members
 export const selectTeamStatus = state => state.team.status
+export const selectTeamError = state => state.team.error

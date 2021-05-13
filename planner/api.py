@@ -36,6 +36,7 @@ def team(request, account):
             data = json.loads(request.body)
 
             if team.account.owner.id == request.user.id:
+                print(data.get("email"))
                 new_member = User.objects.get(email=data.get("email"))
                 team.member.add(new_member)
             
@@ -56,7 +57,7 @@ def team(request, account):
             return JsonResponse({"error": "Team not found"}, status=404)
         
         except User.DoesNotExist:
-            return JsonResponse({"error": "Can't add a user not found to a team"}, status=404)
+            return JsonResponse({"error": "Email don't have an existing GridXPlan account"}, status=400)
 
 
 

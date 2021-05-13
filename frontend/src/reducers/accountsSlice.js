@@ -36,7 +36,6 @@ export const accountsSlice = createSlice({
             state.status = 'succeeded'
             state.accounts = state.accounts.concat(action.payload)
             state.currentAccount = state.accounts[0]
-            console.log(state.currentAccount)
         },
         [fetchAccounts.rejected]: (state, action) => {
             console.log("account:failed")
@@ -50,7 +49,6 @@ export const accountsSlice = createSlice({
         },
         [addAccount.fulfilled]: (state, action) => {
             state.status = 'succeeded'
-            console.log(action.payload)
             state.accounts.push(action.payload.account)
         },
         [addAccount.rejected]: (state, action) => {

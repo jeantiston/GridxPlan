@@ -64,3 +64,8 @@ input:focus, select:focus, textarea:focus{
 textarea{
     min-height: 150px;
 }
+
+.errorText{
+    color: var(--danger);
+    font-size: 0.8rem;
+}
