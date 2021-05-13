@@ -19,7 +19,6 @@ const AddAccount = () => {
     return (
             <form onSubmit={handleNewAccount} className={styles.form}>
                 <input type="text" placeholder="instagram username" name="account" value={newAccount} onChange={e => setNewAccount(e.target.value)} />
-                <button type="submit">Add</button>
             </form>
     )
 }
