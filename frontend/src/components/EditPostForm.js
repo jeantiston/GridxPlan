@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 
 import styles from '../styles/editpost.module.css'
 
-const EditPostForm = ({imgDetails, setImgDetails}) => {
+const EditPostForm = ({postDetails, setPostDetails}) => {
 
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = data => console.log("Sub");
@@ -15,7 +15,7 @@ const EditPostForm = ({imgDetails, setImgDetails}) => {
 
     const handleCaption = (maxCount, input) => {
 
-        setImgDetails({...imgDetails, caption: input})
+        setPostDetails({...postDetails, caption: input})
 
         if (input.length > maxCount) {
             setCaptionSubStyle(`${styles.sub} ${styles.subErr}`)
@@ -25,7 +25,7 @@ const EditPostForm = ({imgDetails, setImgDetails}) => {
         }
     }
 
-    const [hashtagCount, setHashtagCount] = useState(imgDetails.hashtags.length)
+    const [hashtagCount, setHashtagCount] = useState(postDetails.hashtags.length)
 
     const handleHashtags = (maxCount, input) => {
         const hashtags = input.split(" ")
@@ -46,7 +46,7 @@ const EditPostForm = ({imgDetails, setImgDetails}) => {
 
         
 
-        setImgDetails({...imgDetails, hashtags: hashtags})
+        setPostDetails({...postDetails, hashtags: hashtags})
 
         const count = input.split("#").length - 1
         setHashtagCount(count)
@@ -64,35 +64,42 @@ const EditPostForm = ({imgDetails, setImgDetails}) => {
             <form onSubmit={handleSubmit(onSubmit)} className={styles.editPost}>
                 <div className={styles.postPhotoDetails} >
                     <div>
-                        <img className={styles.img} src={ imgDetails.imgUrl } alt="for social media" />
+                        <img className={styles.img} src={ postDetails.image } alt="for social media" />
                     </div>
                     <div className={styles.postDetails}>
                         <h2>status</h2>
-                        <select value={ imgDetails.status } onChange={ e => setImgDetails({...imgDetails, status: e.target.value}) } name="status" ref={register}>
-                            <option value="need captions">need captions</option>
-                            <option value="need hashtags"> need hashtags</option>
-                            <option value="revise"> revise</option>
-                            <option value="approved"> approved</option>
-                            <option value="scheduled"> scheduled</option>
-                            <option value="posted"> posted</option>
+                        <select value={ postDetails.status } onChange={ e => setPostDetails({...postDetails, status: e.target.value}) } name="status" ref={register}>
+                            <option value="backlog">backlog</option>
+                            <option value="needcaptions">need captions</option>
+                            <option value="needhashtags">need hashtags</option>
+                            <option value="revise">revise</option>
+                            <option value="review">for review</option>
+                            <option value="approved">approved</option>
+                            <option value="scheduled">scheduled</option>
+                            <option value="posted">posted</option>
                         </select>
                         <h2>schedule</h2>
-                        <input type="datetime-local" placeholder="schedule" name="schedule" ref={register} />
+                        <input 
+                            value={ postDetails.schedule }
+                            type="datetime-local" 
+                            placeholder="schedule" 
+                            name="schedule" 
+                            ref={register} />
                     </div>
                 </div>
                 <div className={styles.captionDetails}>
                     <textarea 
                         name="caption"
-                        value={ imgDetails.caption }
+                        value={ postDetails.caption }
                         onChange={ e => handleCaption(2100, e.target.value) }
                         ref={register({maxLength: 2100})} 
                     />
-                    <sub className={captionSubStyle}>{ imgDetails.caption.length }/2100</sub>
+                    <sub className={captionSubStyle}>{ postDetails.caption.length }/2100</sub>
                     {/* {errors.caption && "caption error"} */}
 
                     <textarea 
                         name="hashtags" 
-                        value={ imgDetails.hashtags.join(" ") }
+                        value={ postDetails.hashtags.join(" ") }
                         onChange={ e => handleHashtags(30, e.target.value) }
                         ref={register({maxLength: 2000, pattern: /#\w+/i})} 
                     />

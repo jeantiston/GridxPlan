@@ -138,7 +138,7 @@ def post(request, post_id):
     try:
         post = Post.objects.get(pk=post_id)
     except Post.DoesNotExist:
-        return JsonResponse({"error": "Account not found."}, status=404)
+        return JsonResponse({"error": "Post not found."}, status=404)
 
     if request.method == "GET":
         return JsonResponse(post.serialize())

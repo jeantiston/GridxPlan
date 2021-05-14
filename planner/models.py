@@ -68,15 +68,17 @@ class Cell(models.Model):
 
 class Post(models.Model):
     STATUSES = (
-        ('backlog', 'Backlog'),
-        ('inprogress', 'In Progress'),
-        ('review', 'For Review'),
-        ('approved', 'Approved'),
-        ('scheduled', 'Scheduled'),
-        ('posted', 'Posted'),
+        ('backlog', 'backlog'),
+        ('needcaptions', 'need captions'),
+        ('needhashtags', 'need hashtags'),
+        ('revise', 'revise'),
+        ('review', 'for review'),
+        ('approved', 'approved'),
+        ('scheduled', 'scheduled'),
+        ('posted', 'posted'),
     )
-    caption = models.TextField(blank=True, null=True, max_length=2200)
-    hashtags = models.TextField(blank=True, null=True)
+    caption = models.TextField(default='', blank=True, max_length=2200)
+    hashtags = models.TextField(default='', blank=True)
     schedule = models.DateTimeField(blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=30, choices=STATUSES ,default="backlog")

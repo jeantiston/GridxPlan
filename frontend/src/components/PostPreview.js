@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 import styles from '../styles/editpost.module.css'
 
-const EditPostForm = ({ imgDetails }) => {
+const EditPostForm = ({ postDetails }) => {
 
     const [msg, setMsg] = useState('')
     const onSubmit = data => console.log(data);
 
-    const comments = imgDetails.comments.map( comment => {
+    const comments = postDetails.comments.map( comment => {
         return (
             <div key={ comment.id }>
                 <p><b>{ comment.user }</b></p>
@@ -20,20 +20,20 @@ const EditPostForm = ({ imgDetails }) => {
         <div >
                 <div className={styles.postPhotoDetails} >
                     <div>
-                        <img className={styles.img} src={ imgDetails.imgUrl } alt="for social media" />
+                        <img className={styles.img} src={ postDetails.image } alt="for social media" />
                     </div>
                     <div className={styles.postDetails}>
                         <h2>status</h2>
-                        <p>{ imgDetails.status }</p>
+                        <p>{ postDetails.status }</p>
                         
                         <h2>schedule</h2>
-                        <p>{ imgDetails.schedule }</p>
+                        <p>{ postDetails.schedule }</p>
                     </div>
                 </div>
                 <div className={styles.captionDetails}>
-                    <p>{ imgDetails.caption }</p>
+                    <p>{ postDetails.caption }</p>
 
-                    <p>{ imgDetails.hashtags.join(" ") }</p>
+                    <p>{ postDetails.hashtags.join(" ") }</p>
                     
                 </div>
 

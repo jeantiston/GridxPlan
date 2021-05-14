@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import PostBar from '../components/PostBar'
 import EditPostForm from '../components/EditPostForm'
 import PostPreview from '../components/PostPreview'
+
+import { client } from '../data/client'
+
 
 
 const EditPost = () => {
@@ -11,13 +14,13 @@ const EditPost = () => {
 
     let { postId } = useParams()
     
-    const [imgDetails, setImgDetails] = useState({
+    const [postDetails, setPostDetails] = useState({
         id: postId,
-        imgUrl: "https://picsum.photos/300?random=" + postId.toString(),
-        caption: 'lorem ipsum dolor',
-        status: 'revise',
-        schedule: 'Jan 1, 2021 - 8:00pm',
-        hashtags: ['#planner', '#planning', '#lovingit'],
+        image: '',
+        caption: '',
+        status: 'backlog',
+        schedule: '',
+        hashtags: [],
         comments: [
             {
                 id: 0,
@@ -37,12 +40,50 @@ const EditPost = () => {
         ]
     })
 
+    const offset = new Date().getTimezoneOffset() * 1000 * 60
+    const getLocalDate = value => {
+        const offsetDate = new Date(value).valueOf() - offset
+        const date = new Date(offsetDate).toISOString()
+        return date.substring(0, 16)
+    }
+
+    useEffect(() => {
+        fetch(`/api/post/${postId}`)
+        .then(res => res.json())
+        .then(res => {
+            console.log("res")
+            console.log(res)
+
+            let hashtags = []
+            if (typeof res.hashtags === 'string' ){
+                hashtags = res.hashtags.split(" ")
+            }
+
+            let schedule = ''
+            if(res.schedule) {
+                const date = new Date(res.schedule)
+                schedule = getLocalDate(date)
+            }
+
+            setPostDetails({
+                hashtags: hashtags,
+                image: res.image,
+                caption: res.caption,
+                status: res.status,
+                schedule: schedule
+            })
+            
+        })
+
+    }, [])
+
+
     return (
         <div>
             <PostBar editSection={editSection} setEditSection={setEditSection} >
                 { editSection ?
-                    <EditPostForm imgDetails={imgDetails} setImgDetails={setImgDetails} />
-                    : <PostPreview imgDetails={imgDetails} />
+                    <EditPostForm postDetails={postDetails} setPostDetails={setPostDetails} />
+                    : <PostPreview postDetails={postDetails} />
                 }
                 
                 
