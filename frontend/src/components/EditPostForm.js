@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 
 import styles from '../styles/editpost.module.css'
 
 const EditPostForm = ({postDetails, setPostDetails}) => {
-
-    const { register, handleSubmit, errors } = useForm();
-    const onSubmit = data => console.log("Sub");
-    console.log(errors);
 
     const [captionSubStyle, setCaptionSubStyle ] = useState(styles.sub)
     const [hashtagSubStyle, setHashtagSubStyle ] = useState(styles.sub)
@@ -61,14 +56,14 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
 
     return (
         <div >
-            <form onSubmit={handleSubmit(onSubmit)} className={styles.editPost}>
+            <form onSubmit={e => e.preventDefault() } className={styles.editPost}>
                 <div className={styles.postPhotoDetails} >
                     <div>
                         <img className={styles.img} src={ postDetails.image } alt="for social media" />
                     </div>
                     <div className={styles.postDetails}>
                         <h2>status</h2>
-                        <select value={ postDetails.status } onChange={ e => setPostDetails({...postDetails, status: e.target.value}) } name="status" ref={register}>
+                        <select value={ postDetails.status } onChange={ e => setPostDetails({...postDetails, status: e.target.value}) } name="status">
                             <option value="backlog">backlog</option>
                             <option value="needcaptions">need captions</option>
                             <option value="needhashtags">need hashtags</option>
@@ -83,8 +78,9 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
                             value={ postDetails.schedule }
                             type="datetime-local" 
                             placeholder="schedule" 
-                            name="schedule" 
-                            ref={register} />
+                            name="schedule"
+                            onChange={ e => setPostDetails({...postDetails, schedule: e.target.value}) }
+                            />
                     </div>
                 </div>
                 <div className={styles.captionDetails}>
@@ -92,7 +88,6 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
                         name="caption"
                         value={ postDetails.caption }
                         onChange={ e => handleCaption(2100, e.target.value) }
-                        ref={register({maxLength: 2100})} 
                     />
                     <sub className={captionSubStyle}>{ postDetails.caption.length }/2100</sub>
                     {/* {errors.caption && "caption error"} */}
@@ -101,12 +96,11 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
                         name="hashtags" 
                         value={ postDetails.hashtags.join(" ") }
                         onChange={ e => handleHashtags(30, e.target.value) }
-                        ref={register({maxLength: 2000, pattern: /#\w+/i})} 
                     />
                     <sub className={hashtagSubStyle}>{ hashtagCount }/30</sub>
                     { err && <sub className={styles.subErr}>Wrong hashtag format</sub> }
 
-                    <button type="submit" value="Submit">Submit</button>
+                    {/* <button type="submit" value="Submit">Submit</button> */}
                 </div>
             </form>
         </div>

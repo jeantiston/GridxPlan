@@ -4,10 +4,6 @@ import PostBar from '../components/PostBar'
 import EditPostForm from '../components/EditPostForm'
 import PostPreview from '../components/PostPreview'
 
-import { client } from '../data/client'
-
-
-
 const EditPost = () => {
 
     const [editSection, setEditSection] = useState(true)
@@ -77,10 +73,14 @@ const EditPost = () => {
 
     }, [])
 
+    const handleSubmit = () => {
+        console.log(postDetails)
+    }
+
 
     return (
         <div>
-            <PostBar editSection={editSection} setEditSection={setEditSection} >
+            <PostBar handleSubmit={handleSubmit} editSection={editSection} setEditSection={setEditSection} >
                 { editSection ?
                     <EditPostForm postDetails={postDetails} setPostDetails={setPostDetails} />
                     : <PostPreview postDetails={postDetails} />
