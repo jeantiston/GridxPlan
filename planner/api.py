@@ -21,15 +21,7 @@ def team(request, account):
         except Team.DoesNotExist:
             return JsonResponse({"error": "Team not found"}, status=404)
 
-        owner_json = {
-            "id": team.account.owner.id,
-            "username": team.account.owner.username,
-            "email": team.account.owner.email,
-            "owner": 1
-        }
-        team_json = team.serialize() + [owner_json]
-
-        return JsonResponse(team_json, safe=False)
+        return JsonResponse(team.serialize(), safe=False)
 
     if request.method == "POST":
         try:
@@ -76,8 +68,7 @@ def accounts(request):
 
     if request.method == "GET":
         try:
-            # ig_accounts = Account.objects.filter(owner=request.user.id)
-            ig_accounts = Account.objects.filter(Q(owner=request.user.id) | Q(team__member__id=request.user.id)).distinct()
+            ig_accounts = Account.objects.filter(team__member__id=request.user.id).distinct()
         except Account.DoesNotExist:
             return JsonResponse({"error": "Error"}, status=404)
         return JsonResponse([account.serialize() for account in ig_accounts], safe=False)
@@ -134,6 +125,7 @@ def grid(request, account):
             "error": "GET or PUT request required."
         }, status=400)
 
+#getting post details
 def post(request, post_id):
     try:
         post = Post.objects.get(pk=post_id)

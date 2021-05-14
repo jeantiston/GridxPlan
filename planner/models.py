@@ -34,8 +34,15 @@ class Team(models.Model):
                 "id": mem.id,
                 "username": mem.username,
                 "email": mem.email,
+                "owner": 1
+            } if mem.username == self.account.owner.username
+            else {
+                "id": mem.id,
+                "username": mem.username,
+                "email": mem.email,
                 "owner": 0
-            } for mem in self.member.all()
+            }
+            for mem in self.member.all()
         ]
     
     def __str__(self):
@@ -49,6 +56,7 @@ def create_team_account(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Account)
 def save_team_account(sender, instance, **kwargs):
     instance.team.save()
+    instance.team.member.add(instance.owner)
 
 class Cell(models.Model):
     image = models.URLField(blank=False, null=False)
@@ -86,7 +94,6 @@ class Post(models.Model):
 
     def serialize(self):
         return {
-            #Create serial
             "image": self.cell.image,
             "caption": self.caption,
             "hashtags": self.hashtags,
