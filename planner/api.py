@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.db.models import Q
 
 import json
 from datetime import datetime
@@ -75,7 +76,8 @@ def accounts(request):
 
     if request.method == "GET":
         try:
-            ig_accounts = Account.objects.filter(owner=request.user.id)
+            # ig_accounts = Account.objects.filter(owner=request.user.id)
+            ig_accounts = Account.objects.filter(Q(owner=request.user.id) | Q(team__member__id=request.user.id)).distinct()
         except Account.DoesNotExist:
             return JsonResponse({"error": "Error"}, status=404)
         return JsonResponse([account.serialize() for account in ig_accounts], safe=False)
