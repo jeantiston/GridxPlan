@@ -4,6 +4,8 @@ import PostBar from '../components/PostBar'
 import EditPostForm from '../components/EditPostForm'
 import PostPreview from '../components/PostPreview'
 
+import { useHistory } from 'react-router-dom'
+
 const EditPost = () => {
 
     const [editSection, setEditSection] = useState(true)
@@ -73,8 +75,33 @@ const EditPost = () => {
 
     }, [])
 
+    const history = useHistory()
+
     const handleSubmit = () => {
         console.log(postDetails)
+        const date = new Date(postDetails.schedule)
+        // console.log(date.toJSON())
+        const hashtags = postDetails.hashtags.join(" ")
+        
+        const payload = {
+            hashtags: hashtags,
+            caption: postDetails.caption,
+            status: postDetails.status,
+            schedule: date.toJSON()
+        }
+        console.log("payload")
+        console.log(payload)
+
+        fetch('/api/post/edit/' + postId , {
+            method: 'PUT',
+            body: JSON.stringify(payload)
+        }).then(function(response) {
+            console.log("response")
+            console.log(response)
+            history.push("/")
+        })
+
+        
     }
 
 
