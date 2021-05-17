@@ -22,7 +22,12 @@ export const gridSlice = createSlice({
         status: 'idle',
         error: null
     },
-    reducers: {},
+    reducers: {
+        addCell: (state, action) => {
+            console.log("addCell")
+            state.posts.unshift(action.payload)
+        }
+    },
     extraReducers: {
         [fetchPosts.pending]: (state, action) => {
             console.log("loading")
@@ -54,7 +59,7 @@ export const gridSlice = createSlice({
 
 
 
-export const { moveCard } = gridSlice.actions
+export const { addCell } = gridSlice.actions
 
 export default gridSlice.reducer
 

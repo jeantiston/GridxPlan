@@ -15,23 +15,20 @@ import EditPost from './pages/EditPost'
 import Hashtags from './pages/Hashtags'
 import Share from './pages/Share'
 import Settings from './pages/Settings'
-
+import AddImage from './pages/AddImage'
 
 
 function App() {
   return (
     <Router basename='/planner/'>
     <div className="App">
-        {/* <EditPost /> */}
         <Switch>
           <Nav>
             <Route exact path="/">
               <GridGallery />
             </Route>
             <Route exact path="/edit/:postId">
-              {/* <PostBar> */}
                 <EditPost />
-              {/* </PostBar> */}
             </Route>
             <Route exact path="/hashtags">
               <Hashtags />
@@ -41,6 +38,9 @@ function App() {
             </Route>
             <Route exact path="/settings">
               <Settings />
+            </Route>
+            <Route exact path="/add">
+              <AddImage />
             </Route>
           </Nav>
         </Switch>
