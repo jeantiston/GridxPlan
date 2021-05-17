@@ -41,7 +41,7 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
 
         
 
-        setPostDetails({...postDetails, hashtags: hashtags})
+        setPostDetails({...postDetails, hashtags: input})
 
         const count = input.split("#").length - 1
         setHashtagCount(count)
@@ -94,13 +94,12 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
 
                     <textarea 
                         name="hashtags" 
-                        value={ postDetails.hashtags.join(" ") }
+                        value={ postDetails.hashtags }
                         onChange={ e => handleHashtags(30, e.target.value) }
                     />
                     <sub className={hashtagSubStyle}>{ hashtagCount }/30</sub>
                     { err && <sub className={styles.subErr}>Wrong hashtag format</sub> }
 
-                    {/* <button type="submit" value="Submit">Submit</button> */}
                 </div>
             </form>
         </div>

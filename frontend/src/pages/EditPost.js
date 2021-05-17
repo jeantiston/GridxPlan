@@ -18,7 +18,7 @@ const EditPost = () => {
         caption: '',
         status: 'backlog',
         schedule: '',
-        hashtags: [],
+        hashtags: '',
         comments: [
             {
                 id: 0,
@@ -52,11 +52,6 @@ const EditPost = () => {
             console.log("res")
             console.log(res)
 
-            let hashtags = []
-            if (typeof res.hashtags === 'string' ){
-                hashtags = res.hashtags.split(" ")
-            }
-
             let schedule = ''
             if(res.schedule) {
                 const date = new Date(res.schedule)
@@ -64,7 +59,7 @@ const EditPost = () => {
             }
 
             setPostDetails({
-                hashtags: hashtags,
+                hashtags: res.hashtags,
                 image: res.image,
                 caption: res.caption,
                 status: res.status,
@@ -80,11 +75,9 @@ const EditPost = () => {
     const handleSubmit = () => {
         console.log(postDetails)
         const date = new Date(postDetails.schedule)
-        // console.log(date.toJSON())
-        const hashtags = postDetails.hashtags.join(" ")
         
         const payload = {
-            hashtags: hashtags,
+            hashtags: postDetails.hashtags,
             caption: postDetails.caption,
             status: postDetails.status,
             schedule: date.toJSON()
