@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { selectGrid, fetchPosts } from '../reducers/gridSlice'
-import { selectAccounts, fetchAccounts, selectAccountsStatus, selectCurrentAccount } from '../reducers/accountsSlice'
+import { fetchAccounts, selectAccountsStatus, selectCurrentAccount } from '../reducers/accountsSlice'
 
 import { DndProvider, TouchTransition, MouseTransition } from 'react-dnd-multi-backend'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -43,7 +43,7 @@ const GridGallery = () => {
         if (accountsStatus === 'idle') {
             dispatch(fetchAccounts())
         }
-    }, [accountsStatus, dispatch]) //why dispatch?
+    }, [accountsStatus, dispatch])
 
     useEffect(() => {
         if (gridStatus === 'idle' && accountsStatus === 'succeeded' && currentAccount) {
