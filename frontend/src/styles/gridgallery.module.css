@@ -5,4 +5,6 @@
 
 .gridCell{
     width: 33vw;
+    height: 33vw;
+    object-fit: cover;
 }
