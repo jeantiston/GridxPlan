@@ -2,12 +2,11 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.db.models import Q
 
 import json
 from datetime import datetime
 
-from .models import User, Team, Account, Cell, Post
+from .models import User, Team, Account, Cell, Post, Comment
 
 #GET - Fetch all the team members
 #POST - Add new team members
@@ -203,3 +202,16 @@ def add_image(request):
         return JsonResponse({
             "error": "POST request required."
         }, status=400)
+
+def comments(request, post_id):
+    if request.method == "GET":
+        post_comments = Comment.objects.filter(post__id=post_id)
+
+        return JsonResponse([comment.serialize() for comment in post_comments], safe=False)
+
+    else:
+        return JsonResponse({
+            "error": "GET request required."
+        }, status=400)
+
+

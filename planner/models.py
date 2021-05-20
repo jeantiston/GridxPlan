@@ -105,4 +105,21 @@ class HashtagGroups(models.Model):
     caption = models.TextField(blank=False, null=False, max_length=2200)
     account = models.ForeignKey('Account', related_name="account_hashtags", on_delete=models.CASCADE)
 
+class Comment(models.Model):
+    username = models.CharField(max_length=30, blank=False, null=False)
+    comment = models.TextField(blank=False, null=False, max_length=560)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE, related_name="post_comment")
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "postId": self.post.id,
+            "username": self.username,
+            "comment": self.comment
+        }
+    
+    def __str__(self):
+        return self.username + ": " + self.comment
+
+
 

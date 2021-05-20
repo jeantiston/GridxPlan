@@ -9,28 +9,22 @@ const EditPostForm = ({ postDetails }) => {
 
     const [datePreview, setDatePreview] = useState(new Date(postDetails.schedule))
 
-    const [postComments, setPostComments] = useState([
-        {
-            id: 0,
-            user: 'Jack',
-            comment: 'Can you make that photo a bit brighter'
-        },
-        {
-            id: 1,
-            user: 'Jack',
-            comment: 'Fantastic! Thanks. It’s good to go.'
-        },
-        {
-            id: 2,
-            user: 'Molly',
-            comment: 'Add some more emojis in the caption.'
-        }
-    ])
+    const [postComments, setPostComments] = useState([])
+
+    useEffect(() => {
+        fetch(`/api/comments/${postDetails.id}`)
+        .then(res => res.json())
+        .then( res => {
+            console.log("comments res")
+            console.log(res)
+            setPostComments(res)
+        })
+    },[])
 
     const comments = postComments.map( comment => {
         return (
             <div key={ comment.id }>
-                <p><b>{ comment.user }</b></p>
+                <p><b>{ comment.username }</b></p>
                 <p>{ comment.comment }</p>
             </div>
         )
