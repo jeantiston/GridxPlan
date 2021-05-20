@@ -121,5 +121,8 @@ class Comment(models.Model):
     def __str__(self):
         return self.username + ": " + self.comment
 
+    class Meta:
+        ordering = ['-id']
+
 
 

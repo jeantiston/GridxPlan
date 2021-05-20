@@ -4,20 +4,37 @@ import styles from '../styles/editpost.module.css'
 
 const EditPostForm = ({ postDetails }) => {
 
-    const [msg, setMsg] = useState('')
-    const onSubmit = data => console.log(data);
+    const [comment, setComment] = useState('')
+    const [username, setUsername] = useState('')
 
     const [datePreview, setDatePreview] = useState(new Date(postDetails.schedule))
-
     const [postComments, setPostComments] = useState([])
+
+    const handleSubmit = e => {
+        e.preventDefault()
+
+        const payload = {
+            username: username,
+            comment: comment
+        }
+
+        fetch(`/api/comments/${postDetails.id}`, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+        })
+        .then( res => res.json())
+        .then( res => {
+            setPostComments([res.comment, ...postComments])
+        })
+    }
 
     useEffect(() => {
         fetch(`/api/comments/${postDetails.id}`)
         .then(res => res.json())
         .then( res => {
-            console.log("comments res")
-            console.log(res)
             setPostComments(res)
+            setUsername('')
+            setComment('')
         })
     },[])
 
@@ -42,7 +59,6 @@ const EditPostForm = ({ postDetails }) => {
                         
                         <h2>schedule</h2>
                         <p>{ datePreview.toDateString() } { datePreview.toLocaleTimeString() }</p>
-                        {/* <p>{ datePreview.toLocaleString() }</p> */}
                     </div>
                 </div>
                 <div className={styles.captionDetails}>
@@ -54,13 +70,25 @@ const EditPostForm = ({ postDetails }) => {
 
                 <div>
                     <h2>Comments</h2>
-                    <form onSubmit={ data => onSubmit(data)} className={styles.editPost}>
+                    <form onSubmit={handleSubmit} className={styles.editPost}>
                         <div className={styles.captionDetails}>
-                            <input type="text" 
-                                name="comment"
-                                value={ msg }
-                                onChange={ e => setMsg(e.target.value) }
+                            <input 
+                                type="text" 
+                                placeholder="Your Name" 
+                                name="username" 
+                                value={username} 
+                                onChange={e => setUsername(e.target.value)} 
+                                required
                             />
+
+                            <textarea 
+                                name="comment"
+                                value={ comment }
+                                onChange={ e => setComment(e.target.value) }
+                                placeholder="Type your comment here"
+                                required
+                            />
+                            <input type="submit" value="Post Comment" />
                         </div>
                     </form>
                     { comments }

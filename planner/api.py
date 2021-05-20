@@ -203,15 +203,33 @@ def add_image(request):
             "error": "POST request required."
         }, status=400)
 
+@csrf_exempt
 def comments(request, post_id):
     if request.method == "GET":
         post_comments = Comment.objects.filter(post__id=post_id)
 
         return JsonResponse([comment.serialize() for comment in post_comments], safe=False)
+    
+    if request.method == "POST":
+        data = json.loads(request.body)
+        post = Post.objects.get(pk=post_id)
+
+        comment = Comment.objects.create(
+            username = data.get("username"),
+            comment = data.get("comment"),
+            post = post
+        )
+
+        return JsonResponse({
+                "message": "Comment successfully added", 
+                "timestamp": datetime.now().strftime("%b %-d %Y, %-I:%M %p") , 
+                "comment": comment.serialize()
+            }, status=201)
+
 
     else:
         return JsonResponse({
-            "error": "GET request required."
+            "error": "GET or POST request required."
         }, status=400)
 
 

@@ -49,8 +49,6 @@ const EditPost = () => {
         fetch(`/api/post/${postId}`)
         .then(res => res.json())
         .then(res => {
-            console.log("res")
-            console.log(res)
 
             let schedule = ''
             if(res.schedule) {
@@ -82,15 +80,11 @@ const EditPost = () => {
             status: postDetails.status,
             schedule: date.toJSON()
         }
-        console.log("payload")
-        console.log(payload)
 
         fetch('/api/post/edit/' + postId , {
             method: 'PUT',
             body: JSON.stringify(payload)
         }).then(function(response) {
-            console.log("response")
-            console.log(response)
             history.push("/")
         })
 
@@ -105,6 +99,7 @@ const EditPost = () => {
                     <EditPostForm postDetails={postDetails} setPostDetails={setPostDetails} />
                     : <PostPreview postDetails={postDetails} />
                 }
+                <p>.</p>
                 
                 
             </PostBar>
