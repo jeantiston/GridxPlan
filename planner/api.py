@@ -182,7 +182,11 @@ def add_image(request):
         user = User.objects.get(pk=request.user.id)
         
         if user in users:
-            position = account.account_grid.first().position + 1
+            first_cell = account.account_grid.first()
+
+            position = 1
+            if first_cell:
+                position += first_cell.position
 
             cell = Cell.objects.create(account=account, image=data.get('image'), position=position)
 
