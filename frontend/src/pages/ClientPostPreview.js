@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"
+
 import PostPreview from '../components/PostPreview'
+import PostPreviewBar from '../components/PostPreviewBar'
 
 const ClientPostPreview = () => {
     const { postId } = useParams()
 
-    console.log(postId)
 
     const [postDetails, setPostDetails] = useState({
         id: postId,
@@ -24,9 +25,6 @@ const ClientPostPreview = () => {
     }
 
     useEffect(() => {
-        console.log("postId")
-        console.log(postId)
-        console.log(`/api/post/${postId}`)
 
         fetch(`/api/post/${postId}`)
         .then(res => res.json())
@@ -46,8 +44,6 @@ const ClientPostPreview = () => {
                 schedule: schedule
             })
 
-            console.log(postDetails)
-            console.log(postDetails)
             
         })
 
@@ -55,8 +51,9 @@ const ClientPostPreview = () => {
 
     return (
         <div>
-            {/* <h3>Post Preview</h3> */}
-            <PostPreview postDetails={postDetails} />
+            <PostPreviewBar >
+                <PostPreview postDetails={postDetails} />
+            </PostPreviewBar>
         </div>
     )
 }

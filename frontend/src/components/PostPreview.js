@@ -39,7 +39,6 @@ const EditPostForm = ({ postDetails }) => {
     }
 
     useEffect(() => {
-        console.log(postDetails)
         fetch(`/api/comments/${postDetails.id}`)
         .then(res => res.json())
         .then( res => {
