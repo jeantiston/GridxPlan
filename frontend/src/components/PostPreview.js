@@ -7,7 +7,17 @@ const EditPostForm = ({ postDetails }) => {
     const [comment, setComment] = useState('')
     const [username, setUsername] = useState('')
 
-    const [datePreview, setDatePreview] = useState(new Date(postDetails.schedule))
+    const [datePreview, setDatePreview] = useState((new Date(postDetails.schedule)).toDateString())
+    const [timePreview, setTimePreview] = useState(new Date(postDetails.schedule).toLocaleTimeString())
+
+    if (datePreview == "Invalid Date"){
+        setDatePreview("No Schedule")
+    }
+
+    if (timePreview == "Invalid Date"){
+        setTimePreview("")
+    }
+
     const [postComments, setPostComments] = useState([])
 
     const handleSubmit = e => {
@@ -58,7 +68,7 @@ const EditPostForm = ({ postDetails }) => {
                         <p>{ postDetails.status }</p>
                         
                         <h2>schedule</h2>
-                        <p>{ datePreview.toDateString() } { datePreview.toLocaleTimeString() }</p>
+                        <p>{ datePreview } { timePreview }</p>
                     </div>
                 </div>
                 <div className={styles.captionDetails}>
