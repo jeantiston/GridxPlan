@@ -35,6 +35,8 @@ const EditPostForm = ({ postDetails }) => {
         .then( res => res.json())
         .then( res => {
             setPostComments([res.comment, ...postComments])
+            setUsername('')
+            setComment('')
         })
     }
 
@@ -43,8 +45,6 @@ const EditPostForm = ({ postDetails }) => {
         .then(res => res.json())
         .then( res => {
             setPostComments(res)
-            setUsername('')
-            setComment('')
         })
     },[])
 

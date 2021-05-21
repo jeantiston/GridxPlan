@@ -32,7 +32,7 @@ function App() {
             <Route exact path="/preview/:username">
               <ClientPreview />
             </Route>
-            <Route exact path="/post/:username/:postId">
+            <Route exact path="/preview/:username/:postId">
                 <ClientPostPreview />
             </Route>
             <Route exact path="/edit/:postId">

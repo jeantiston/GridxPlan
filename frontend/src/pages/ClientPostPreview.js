@@ -5,7 +5,7 @@ import PostPreview from '../components/PostPreview'
 import PostPreviewBar from '../components/PostPreviewBar'
 
 const ClientPostPreview = () => {
-    const { username, postId } = useParams()
+    const { postId } = useParams()
 
 
     const [postDetails, setPostDetails] = useState({
