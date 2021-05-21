@@ -17,6 +17,7 @@ import Share from './pages/Share'
 import Settings from './pages/Settings'
 import AddImage from './pages/AddImage'
 import ClientPreview from './pages/ClientPreview'
+import ClientPostPreview from './pages/ClientPostPreview'
 
 
 function App() {
@@ -33,6 +34,9 @@ function App() {
             </Route>
             <Route exact path="/edit/:postId">
                 <EditPost />
+            </Route>
+            <Route exact path="/post/:postId">
+                <ClientPostPreview />
             </Route>
             <Route exact path="/hashtags">
               <Hashtags />
