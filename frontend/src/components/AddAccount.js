@@ -36,7 +36,7 @@ const AddAccount = () => {
 
     return (
             <form onSubmit={handleNewAccount} className={styles.form}>
-                <input type="text" placeholder="instagram username" name="account" value={newAccount} onChange={e => setNewAccount(e.target.value)} />
+                <input type="text" placeholder="instagram username" name="account" value={newAccount} onChange={e => setNewAccount(e.target.value)} required />
                 { errorMsg && <p class="errorText">{ errorMsg }</p> }
             </form>
     )

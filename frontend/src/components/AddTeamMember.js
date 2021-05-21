@@ -47,7 +47,7 @@ const AddTeamMember = () => {
     return (
         <div>
             <form onSubmit={handleNewTeammate} className={styles.form}>
-                <input type="email" placeholder="email" name="teammate" value={newTeammate} onChange={e => setNewTeammate(e.target.value)} />
+                <input type="email" placeholder="email" name="teammate" value={newTeammate} onChange={e => setNewTeammate(e.target.value)} required />
                 { errorMsg && <p class="errorText">{ errorMsg }</p> }
             </form>
         </div>
