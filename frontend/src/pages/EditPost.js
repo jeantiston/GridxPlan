@@ -20,23 +20,6 @@ const EditPost = () => {
         schedule: '',
         hashtags: ''
     })
-    // const [postComments, setPostComments] = useState([
-    //     {
-    //         id: 0,
-    //         user: 'Jack',
-    //         comment: 'Can you make that photo a bit brighter'
-    //     },
-    //     {
-    //         id: 1,
-    //         user: 'Jack',
-    //         comment: 'Fantastic! Thanks. It’s good to go.'
-    //     },
-    //     {
-    //         id: 2,
-    //         user: 'Molly',
-    //         comment: 'Add some more emojis in the caption.'
-    //     }
-    // ])
 
     const offset = new Date().getTimezoneOffset() * 1000 * 60
     const getLocalDate = value => {

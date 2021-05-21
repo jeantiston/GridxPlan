@@ -16,6 +16,7 @@ import Hashtags from './pages/Hashtags'
 import Share from './pages/Share'
 import Settings from './pages/Settings'
 import AddImage from './pages/AddImage'
+import ClientPreview from './pages/ClientPreview'
 
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
           <Nav>
             <Route exact path="/">
               <GridGallery />
+            </Route>
+            <Route exact path="/preview/:username">
+              <ClientPreview />
             </Route>
             <Route exact path="/edit/:postId">
                 <EditPost />

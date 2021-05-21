@@ -1,10 +1,20 @@
 .grid{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    column-gap: 3px;
 }
 
 .gridCell{
     width: 33vw;
     height: 33vw;
     object-fit: cover;
+}
+
+.bottomBar{
+    background-color: var(--light);
+    height: 60px;
+    width: 100vw;
+    position: fixed;
+    top: calc(100vh - 60px);
+    z-index: 2;
 }

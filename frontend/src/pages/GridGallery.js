@@ -33,8 +33,6 @@ const GridGallery = () => {
 
     const dispatch = useDispatch()
 
-    const images = useSelector(selectGrid)
-
     const gridStatus = useSelector(state => state.grid.status)
     const accountsStatus = useSelector(selectAccountsStatus)
     const currentAccount = useSelector(selectCurrentAccount)
@@ -51,9 +49,10 @@ const GridGallery = () => {
         }
     }, [currentAccount, accountsStatus, dispatch]) 
 
+    const images = useSelector(selectGrid)
     const renderCard = (image, index) => {
         return (
-                <GridImage key={image.id} index={index} id={image.postId} url={image.image} />
+                <GridImage key={image.postId} index={index} id={image.postId} url={image.image} />
             );
     };
 
