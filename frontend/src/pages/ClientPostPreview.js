@@ -5,7 +5,7 @@ import PostPreview from '../components/PostPreview'
 import PostPreviewBar from '../components/PostPreviewBar'
 
 const ClientPostPreview = () => {
-    const { postId } = useParams()
+    const { username, postId } = useParams()
 
 
     const [postDetails, setPostDetails] = useState({
@@ -53,6 +53,7 @@ const ClientPostPreview = () => {
         <div>
             <PostPreviewBar >
                 <PostPreview postDetails={postDetails} />
+                <p>.</p>
             </PostPreviewBar>
         </div>
     )

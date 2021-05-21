@@ -20,7 +20,7 @@ const ClientPreview = () => {
     const images = useSelector(selectGrid)
     const renderCard = image => {
         return (
-                <Link to={"/post/" + image.postId} >
+                <Link to={`/post/${username}/${image.postId}`} >
                     <img key={image.postId} className={styles.gridCell} src={image.image} />
                 </Link>
             );

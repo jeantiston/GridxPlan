@@ -65,8 +65,8 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
                         <h2>status</h2>
                         <select value={ postDetails.status } onChange={ e => setPostDetails({...postDetails, status: e.target.value}) } name="status">
                             <option value="backlog">backlog</option>
-                            <option value="needcaptions">need captions</option>
-                            <option value="needhashtags">need hashtags</option>
+                            <option value="need captions">need captions</option>
+                            <option value="need hashtags">need hashtags</option>
                             <option value="revise">revise</option>
                             <option value="review">for review</option>
                             <option value="approved">approved</option>

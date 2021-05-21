@@ -32,11 +32,11 @@ function App() {
             <Route exact path="/preview/:username">
               <ClientPreview />
             </Route>
+            <Route exact path="/post/:username/:postId">
+                <ClientPostPreview />
+            </Route>
             <Route exact path="/edit/:postId">
                 <EditPost />
-            </Route>
-            <Route exact path="/post/:postId">
-                <ClientPostPreview />
             </Route>
             <Route exact path="/hashtags">
               <Hashtags />
