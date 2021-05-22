@@ -10,7 +10,7 @@
     <body>
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">GridxPlan</a>
+            <a class="navbar-brand" href="#"><img src="{% static 'planner/gridxplanner-logo.svg' %}" alt="logo" /></a>
         
             <div>
                 <ul class="navbar-nav mr-auto">
@@ -19,13 +19,7 @@
                             <a class="nav-link" href="#"><strong>{{ user.username }}</strong></a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">All Posts</a>
-                    </li>
                     {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Following</a>
-                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
                         </li>
