@@ -34,7 +34,7 @@ const ListAccounts = () => {
 
     const renderAccounts = accounts.map((account, i) => {
         if (account.username === currentAccount.username ) {
-            return ( <b key={i}  onClick={ () => handleSwitch(account) } >@{ account.username }</b> )
+            return ( <p><b key={i}  onClick={ () => handleSwitch(account) } >@{ account.username }</b></p> )
         }
         return (
             <p key={i}  onClick={ () => handleSwitch(account) } >@{ account.username }</p>
