@@ -20,10 +20,12 @@ const Settings = () => {
             < ListTeam />
             < AddTeamMember />
 
-            <div className={styles.logoutButton}>
-                <FontAwesomeIcon icon={faPowerOff} size="2x" />
-                <sub className={styles.sub}>logout</sub>
-            </div>
+            <a href="/logout" >
+                <div className={styles.logoutButton}>
+                    <FontAwesomeIcon icon={faPowerOff} size="2x" />
+                    <sub className={styles.sub}>logout</sub>
+                </div>
+            </a>
         </div>
     )
 }
