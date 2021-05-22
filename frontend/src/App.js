@@ -23,37 +23,41 @@ import ClientPostPreview from './pages/ClientPostPreview'
 function App() {
   return (
     <Router basename='/planner/'>
-    <div className="App">
+      <div className="App">
         <Switch>
           <Nav>
-            <Route exact path="/">
-              <GridGallery />
-            </Route>
-            <Route exact path="/preview/:username">
-              <ClientPreview />
-            </Route>
-            <Route exact path="/preview/:username/:postId">
-                <ClientPostPreview />
-            </Route>
-            <Route exact path="/edit/:postId">
-                <EditPost />
-            </Route>
-            <Route exact path="/hashtags">
-              <Hashtags />
-            </Route>
-            <Route exact path="/share">
-              <Share />
-            </Route>
-            <Route exact path="/settings">
-              <Settings />
-            </Route>
-            <Route exact path="/add">
-              <AddImage />
-            </Route>
+            <div className="wrapwrap">
+              <div className="wrap">
+                <Route exact path="/">
+                  <GridGallery />
+                </Route>
+                <Route exact path="/preview/:username">
+                  <ClientPreview />
+                </Route>
+                <Route exact path="/preview/:username/:postId">
+                    <ClientPostPreview />
+                </Route>
+                <Route exact path="/edit/:postId">
+                    <EditPost />
+                </Route>
+                <Route exact path="/hashtags">
+                  <Hashtags />
+                </Route>
+                <Route exact path="/share">
+                  <Share />
+                </Route>
+                <Route exact path="/settings">
+                  <Settings />
+                </Route>
+                <Route exact path="/add">
+                  <AddImage />
+                </Route>
+              </div>
+            </div>
           </Nav>
         </Switch>
       </div>
-      </Router>
+    </Router>
   );
 }
 

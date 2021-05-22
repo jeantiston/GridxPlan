@@ -56,8 +56,10 @@ const BottomMenu = () => {
     
 
     return (
-        <div className={styles.flex}>
-            { menuItems }
+        <div className={styles.wrapper}>
+            <div className={styles.flex}>
+                { menuItems }
+            </div>
         </div>
     )
 }

@@ -5,6 +5,7 @@
     justify-content: space-between;
     height: 60px;
     width: 100vw;
+    max-width: 935px;
     position: fixed;
     top: 0;
     font-family: var(--font-primary);
@@ -19,6 +20,7 @@
     justify-content: space-around;
     height: 60px;
     width: 100vw;
+    max-width: 935px;
     position: fixed;
     top: calc(100vh - 60px);
     z-index: 2;

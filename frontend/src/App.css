@@ -14,7 +14,6 @@
     --font-text: "Roboto", sans-serif;
 }
 
-/* html, body {margin: 0; height: 100%; overflow: hidden} */
 html, body {overflow-x: hidden}
 
 body {
@@ -41,7 +40,6 @@ h2{
 }
 
 p{
-    /* padding: 0; */
     padding: 3px 10px 0 10px;
 }
 
@@ -68,4 +66,16 @@ textarea{
 .errorText{
     color: var(--danger);
     font-size: 0.8rem;
+}
+
+.wrapwrap{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+
+}
+
+.wrap{
+    width: 100vw;
+    max-width: 935px;
 }

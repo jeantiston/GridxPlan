@@ -1,3 +1,14 @@
+.wrapper{
+    /* border: 5px solid olivedrab; */
+    background-color: var(--light);
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 60px;
+    position: fixed;
+    top: calc(100vh - 60px);
+}
+
 .flex{
     /* border: 5px solid red; */
     background-color: var(--light);
@@ -6,8 +17,7 @@
     justify-content: space-between;
     height: 60px;
     width: 100vw;
-    position: fixed;
-    top: calc(100vh - 60px);
+    max-width: 935px;
 }
 
 .menuItem{

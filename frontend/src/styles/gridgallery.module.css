@@ -7,6 +7,8 @@
 .gridCell{
     width: 33vw;
     height: 33vw;
+    max-width: 310px;
+    max-height: 310px;
     object-fit: cover;
 }
 
