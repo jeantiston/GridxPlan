@@ -88,7 +88,7 @@ class Post(models.Model):
 
     def serialize(self):
         return {
-            "image": self.cell.image,
+            "image": self.cell.image.url,
             "caption": self.caption,
             "hashtags": self.hashtags,
             "schedule": self.schedule,

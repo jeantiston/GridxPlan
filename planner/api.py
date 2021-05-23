@@ -106,7 +106,6 @@ def grid(request, account):
         print("cells")
         print(cells)
         print(cells[0].image.url)
-        print("--------------------")
         return JsonResponse([cell.serialize() for cell in cells], safe=False)
 
     elif request.method == "PUT":
@@ -173,11 +172,11 @@ def update_post(request, post_id):
 
 @csrf_exempt
 def add_image(request):
+    # print(request.POST.get('account'))
+    # print(request.FILES.get("image"))
+
     try:
-        data = json.loads(request.body)
-        print("data")
-        print(data)
-        account = Account.objects.get(username=data.get('account'))
+        account = Account.objects.get(username=request.POST.get('account'))
         users = account.team.member.all()
     except Post.DoesNotExist:
         return JsonResponse({"error": "Post not found."}, status=404)
@@ -192,13 +191,13 @@ def add_image(request):
             if first_cell:
                 position += first_cell.position
 
-            cell = Cell.objects.create(account=account, image=data.get('image'), position=position)
+            cell = Cell.objects.create(account=account, image=request.FILES.get("image"), position=position)
 
             return JsonResponse({
                 "message": "Image successfully added", 
                 "timestamp": datetime.now().strftime("%b %-d %Y, %-I:%M %p") , 
                 "id": cell.id,
-                "image": cell.image,
+                "image": cell.image.url,
                 "position": cell.position
             }, status=201)
 
