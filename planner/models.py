@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
 class User(AbstractUser):
     pass
 
@@ -58,14 +57,19 @@ def save_team_account(sender, instance, **kwargs):
     instance.team.save()
     instance.team.member.add(instance.owner)
 
+
+def upload_to(instance, filename):
+    return 'planner/{filename}'.format(filename=filename)
+
 class Cell(models.Model):
-    image = models.URLField(blank=False, null=False)
+    # image = models.URLField(blank=False, null=False)
+    image = models.ImageField(upload_to=upload_to, default='planner/default.jpg')
     account = models.ForeignKey('Account', related_name="account_grid", on_delete=models.CASCADE)
     position = models.IntegerField()
 
     def serialize(self):
         return {
-            "image": self.image,
+            "image": self.image.url,
             # "account": self.account.username,
             # "position": self.position,
             "postId": self.post.pk
