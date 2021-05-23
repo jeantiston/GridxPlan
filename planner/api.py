@@ -103,9 +103,8 @@ def grid(request, account):
         return JsonResponse({"error": "Account not found."}, status=404)
 
     if request.method == "GET":
-        print("cells")
-        print(cells)
-        print(cells[0].image.url)
+        # print("cells")
+        # print(cells[0].image.url)
         return JsonResponse([cell.serialize() for cell in cells], safe=False)
 
     elif request.method == "PUT":
