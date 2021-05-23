@@ -4,6 +4,7 @@ import { faFileImage } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCurrentAccount } from '../reducers/accountsSlice'
 import { addCell } from '../reducers/gridSlice'
+import { useHistory } from 'react-router-dom'
 
 import styles from '../styles/bottommenu.module.css'
 
@@ -11,6 +12,7 @@ const ImageUpload = () => {
 
     const currentAccount = useSelector(selectCurrentAccount)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const handleChange = (e) => {
         // if (e.target.files[0].size < 1024){
@@ -35,6 +37,7 @@ const ImageUpload = () => {
             }
             dispatch(addCell(post))
 
+            history.push("/")
         })
     }
 
