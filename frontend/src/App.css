@@ -80,3 +80,7 @@ textarea{
     width: 100vw;
     max-width: 935px;
 }
+
+input[type="file"] {
+    display: none;
+}

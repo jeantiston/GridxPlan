@@ -23,3 +23,5 @@ package-lock.json
 frontend/build/*
 
 .eslintcache
+media/planner/*
+!media/planner/default.jpg

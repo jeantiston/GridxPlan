@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarAlt, faTag, faFileImage, faHashtag, faShareAlt, faCog } from '@fortawesome/free-solid-svg-icons'
 
+import ImageUpload from './ImageUpload'
 import styles from '../styles/bottommenu.module.css'
 
 const BottomMenu = () => {
@@ -16,10 +17,10 @@ const BottomMenu = () => {
         //     'path': '/',
         //     'icon': faTag
         // },
-        {   'name': 'add image',
-            'path': '/add',
-            'icon': faFileImage
-        },
+        // {   'name': 'add image',
+        //     'path': '/add',
+        //     'icon': faFileImage
+        // },
         // {   'name': 'hashtags',
         //     'path': '/hashtags',
         //     'icon': faHashtag
@@ -53,11 +54,11 @@ const BottomMenu = () => {
                 </NavLink>
             )
         })
-    
 
     return (
         <div className={styles.wrapper}>
             <div className={styles.flex}>
+                <ImageUpload />
                 { menuItems }
             </div>
         </div>

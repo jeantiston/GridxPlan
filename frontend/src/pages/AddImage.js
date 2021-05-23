@@ -10,41 +10,51 @@ const AddImage = () => {
     const history = useHistory()
     const dispatch = useDispatch()
 
+    const [image, setImage] = useState(null)
+
+    const handleChange = (e) => {
+        // if (e.target.files[0].size < 1024){
+            setImage({image: e.target.files})
+        // }
+    }
+
     const handleSubmit = e => {
 
         e.preventDefault()
-        console.log("New Image")
-        console.log(imgUrl)
 
-        const payload = {
-            account: currentAccount.username,
-            image: imgUrl
-        }
+        let formData = new FormData()
+        formData.append('image', image.image[0])
+        formData.append('account', currentAccount.username)
+
+        // console.log("formData")
+        // console.log(formData.get('image'))
 
         fetch('/api/post/add', {
             method: 'POST',
-            body: JSON.stringify(payload)
+            body: formData
         }).then( response => response.json())
         .then( response => {
-            console.log("response")
-            console.log(response)
+            // console.log("response")
+            // console.log(response)
             const post = {
                 image: response.image,
                 postId: parseInt(response.id)
             }
             dispatch(addCell(post))
 
-            history.push("/edit/" + response.id)
-
+            history.push("/")
         })
     }
 
     return (
         <div>
-            <h1>Add Image</h1>
-
             <form onSubmit={handleSubmit}>
-                <input type="url" placeholder="https://" name="img-url" value={imgUrl} onChange={e => setImgUrl(e.target.value)} />
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleChange}
+                    name="image"
+				/>
                 <input type="submit" value="Upload" />
             </form>
 
