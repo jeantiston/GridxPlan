@@ -8,6 +8,9 @@ from .models import User
 
 
 def index(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("planner"))
+
     return render(request, "planner/index.html")
 
 
