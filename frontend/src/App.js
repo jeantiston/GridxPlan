@@ -12,10 +12,8 @@ import Nav from './components/Nav'
 
 import GridGallery from './pages/GridGallery'
 import EditPost from './pages/EditPost'
-import Hashtags from './pages/Hashtags'
 import Share from './pages/Share'
 import Settings from './pages/Settings'
-import AddImage from './pages/AddImage'
 import ClientPreview from './pages/ClientPreview'
 import ClientPostPreview from './pages/ClientPostPreview'
 
@@ -40,17 +38,11 @@ function App() {
                 <Route exact path="/edit/:postId">
                     <EditPost />
                 </Route>
-                <Route exact path="/hashtags">
-                  <Hashtags />
-                </Route>
                 <Route exact path="/share">
                   <Share />
                 </Route>
                 <Route exact path="/settings">
                   <Settings />
-                </Route>
-                <Route exact path="/add">
-                  <AddImage />
                 </Route>
               </div>
             </div>
