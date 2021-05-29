@@ -1,2 +1,0 @@
-# GridxPlan
- Instagram Collaborative Planner 
