@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 import Nav from './components/Nav'
-// import PostBar from './components/PostBar'
+import InitialFetch from './components/InitialFetch'
 
 import GridGallery from './pages/GridGallery'
 import EditPost from './pages/EditPost'
@@ -23,30 +23,32 @@ function App() {
     <Router basename='/planner/'>
       <div className="App">
         <Switch>
-          <Nav>
-            <div className="wrapwrap">
-              <div className="wrap">
-                <Route exact path="/">
-                  <GridGallery />
-                </Route>
-                <Route exact path="/preview/:username">
-                  <ClientPreview />
-                </Route>
-                <Route exact path="/preview/:username/:postId">
-                    <ClientPostPreview />
-                </Route>
-                <Route exact path="/edit/:postId">
-                    <EditPost />
-                </Route>
-                <Route exact path="/share">
-                  <Share />
-                </Route>
-                <Route exact path="/settings">
-                  <Settings />
-                </Route>
+          <InitialFetch >
+            <Nav>
+              <div className="wrapwrap">
+                <div className="wrap">
+                  <Route exact path="/">
+                    <GridGallery />
+                  </Route>
+                  <Route exact path="/preview/:username">
+                    <ClientPreview />
+                  </Route>
+                  <Route exact path="/preview/:username/:postId">
+                      <ClientPostPreview />
+                  </Route>
+                  <Route exact path="/edit/:postId">
+                      <EditPost />
+                  </Route>
+                  <Route exact path="/share">
+                    <Share />
+                  </Route>
+                  <Route exact path="/settings">
+                    <Settings />
+                  </Route>
+                </div>
               </div>
-            </div>
-          </Nav>
+            </Nav>
+            </InitialFetch>
         </Switch>
       </div>
     </Router>
