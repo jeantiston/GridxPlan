@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAccounts, selectAccountsStatus, selectCurrentAccount } from '../reducers/accountsSlice'
+import { fetchAccounts, selectAccountsStatus } from '../reducers/accountsSlice'
 
 const InitialFetch = ({children}) => {
     const dispatch = useDispatch()

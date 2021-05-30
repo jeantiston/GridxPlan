@@ -10,11 +10,11 @@ const EditPostForm = ({ postDetails }) => {
     const [datePreview, setDatePreview] = useState((new Date(postDetails.schedule)).toDateString())
     const [timePreview, setTimePreview] = useState(new Date(postDetails.schedule).toLocaleTimeString())
 
-    if (datePreview == "Invalid Date"){
+    if (datePreview === "Invalid Date"){
         setDatePreview("No Schedule")
     }
 
-    if (timePreview == "Invalid Date"){
+    if (timePreview === "Invalid Date"){
         setTimePreview("")
     }
 

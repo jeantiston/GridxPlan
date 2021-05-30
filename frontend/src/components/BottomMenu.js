@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalendarAlt, faTag, faFileImage, faHashtag, faShareAlt, faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt, faShareAlt, faCog } from '@fortawesome/free-solid-svg-icons'
 
 import ImageUpload from './ImageUpload'
 import styles from '../styles/bottommenu.module.css'

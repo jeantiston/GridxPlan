@@ -4,12 +4,11 @@ import { useHistory, useParams } from "react-router-dom"
 import styles from '../styles/postbar.module.css'
 
 const PostPreviewBar = ({children}) => {
-    const { username, postId } = useParams()
+    const { username } = useParams()
     const history = useHistory()
 
     const back = () => {
         history.push(`/preview/${username}`)
-        // history.goBack()
     }
 
     return(
