@@ -33,7 +33,7 @@ export const teamSlice = createSlice({
         [fetchTeamMembers.rejected]: (state, action) => {
             console.log("team:failed")
             state.status = 'failed'
-            state.error = action.error.message
+            // state.error = action.error.message
         },
 
         [addTeamMember.pending]: (state, action) => {
