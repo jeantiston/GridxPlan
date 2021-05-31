@@ -53,25 +53,31 @@ const EditPost = () => {
 
     const history = useHistory()
 
+    const [err, setErr] = useState({
+        caption: false,
+        hashtags: false
+    })
+
     const handleSubmit = () => {
-        console.log(postDetails)
-        const date = new Date(postDetails.schedule)
-        
-        const payload = {
-            hashtags: postDetails.hashtags,
-            caption: postDetails.caption,
-            status: postDetails.status,
-            schedule: date.toJSON()
+        if (!err.caption && !err.hashtags) {
+            console.log(postDetails)
+            const date = new Date(postDetails.schedule)
+            
+            const payload = {
+                hashtags: postDetails.hashtags,
+                caption: postDetails.caption,
+                status: postDetails.status,
+                schedule: date.toJSON()
+            }
+
+            fetch('/api/post/edit/' + postId , {
+                method: 'PUT',
+                body: JSON.stringify(payload)
+            }).then(function(response) {
+                history.push("/")
+            })
         }
 
-        fetch('/api/post/edit/' + postId , {
-            method: 'PUT',
-            body: JSON.stringify(payload)
-        }).then(function(response) {
-            history.push("/")
-        })
-
-        
     }
 
 
@@ -79,7 +85,7 @@ const EditPost = () => {
         <div>
             <PostBar handleSubmit={handleSubmit} editSection={editSection} setEditSection={setEditSection} >
                 { editSection ?
-                    <EditPostForm postDetails={postDetails} setPostDetails={setPostDetails} />
+                    <EditPostForm postDetails={postDetails} setPostDetails={setPostDetails} err={err} setErr={setErr} />
                     : <PostPreview postDetails={postDetails} />
                 }
                 <p>.</p>

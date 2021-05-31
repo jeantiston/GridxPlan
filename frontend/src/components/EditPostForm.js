@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 
 import styles from '../styles/editpost.module.css'
 
-const EditPostForm = ({postDetails, setPostDetails}) => {
+const EditPostForm = ({postDetails, setPostDetails, err, setErr}) => {
 
     const [captionSubStyle, setCaptionSubStyle ] = useState(styles.sub)
     const [hashtagSubStyle, setHashtagSubStyle ] = useState(styles.sub)
-    const [err, setErr] = useState(false)
 
     const handleCaption = (maxCount, input) => {
 
@@ -14,9 +13,11 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
 
         if (input.length > maxCount) {
             setCaptionSubStyle(`${styles.sub} ${styles.subErr}`)
+            setErr({...err, caption: true })
         }
         else {
             setCaptionSubStyle(styles.sub)
+            setErr({...err, caption: false })
         }
     }
 
@@ -30,11 +31,11 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
             return el !== "";
         });
 
-        setErr(false)
+        setErr({ ...err, hashtags: false })
 
         for (let hashtag of filtered) {
             if (!pattern.test(hashtag) && hashtag) {
-                setErr(true)
+                setErr({ ...err, hashtags: true })
                 break
             }
         }
@@ -90,7 +91,7 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
                         onChange={ e => handleCaption(2100, e.target.value) }
                     />
                     <sub className={captionSubStyle}>{ postDetails.caption.length }/2100</sub>
-                    {/* {errors.caption && "caption error"} */}
+                    { err.caption && <sub className={styles.subErr}>Caption should be less than 2100 characters</sub> }
 
                     <textarea 
                         name="hashtags" 
@@ -98,7 +99,7 @@ const EditPostForm = ({postDetails, setPostDetails}) => {
                         onChange={ e => handleHashtags(30, e.target.value) }
                     />
                     <sub className={hashtagSubStyle}>{ hashtagCount }/30</sub>
-                    { err && <sub className={styles.subErr}>Wrong hashtag format</sub> }
+                    { err.hashtags && <sub className={styles.subErr}>Wrong hashtag format</sub> }
 
                 </div>
             </form>
