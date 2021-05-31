@@ -181,6 +181,9 @@ def add_image(request):
         return JsonResponse({"error": "Post not found."}, status=404)
 
     if request.method == "POST":
+        if not request.FILES.get("image"):
+            return HttpResponse({"error": "No image received"}, status=403)        
+
         user = User.objects.get(pk=request.user.id)
         
         if user in users:
@@ -201,7 +204,7 @@ def add_image(request):
             }, status=201)
 
         else:
-            return HttpResponse({"error": "You don't have permission to edit this post"}, status=403)        
+            return HttpResponse({"error": "You don't have permission to add image in this account"}, status=403)        
 
 
     else:

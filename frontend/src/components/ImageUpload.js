@@ -15,30 +15,31 @@ const ImageUpload = () => {
     const history = useHistory()
 
     const handleChange = (e) => {
-        // if (e.target.files[0].size < 1024){
-            console.log(e.target.files[0])
-            // setImage({image: e.target.files})
-        // }
+        console.log(e.target.files[0].size)
 
-        let formData = new FormData()
-        formData.append('image', e.target.files[0])
-        formData.append('account', currentAccount.username)
+        if(e.target.files[0] ){
+            if(e.target.files[0].size < 5000000){
+                let formData = new FormData()
+                formData.append('image', e.target.files[0])
+                formData.append('account', currentAccount.username)
 
-        fetch('/api/post/add', {
-            method: 'POST',
-            body: formData
-        }).then( response => response.json())
-        .then( response => {
-            console.log("response")
-            console.log(response)
-            const post = {
-                image: response.image,
-                postId: parseInt(response.id)
+                fetch('/api/post/add', {
+                    method: 'POST',
+                    body: formData
+                }).then( response => response.json())
+                .then( response => {
+                    console.log("response")
+                    console.log(response)
+                    const post = {
+                        image: response.image,
+                        postId: parseInt(response.id)
+                    }
+                    dispatch(addCell(post))
+
+                    history.push("/")
+                })
             }
-            dispatch(addCell(post))
-
-            history.push("/")
-        })
+        }
     }
 
     return(
