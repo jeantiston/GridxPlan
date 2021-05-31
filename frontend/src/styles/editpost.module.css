@@ -1,6 +1,7 @@
 .img{
     width: 50vw;
-    /* max-height: 170px; */
+    max-width: 400px;
+    height: auto;
 }
 
 .postPhotoDetails{
@@ -8,7 +9,7 @@
 }
 
 .postDetails{
-    /* border: red solid 3px; */
+    flex: 1;
     padding: 10px 0;
     display: flex;
     flex-direction: column;
