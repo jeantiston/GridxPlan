@@ -16,7 +16,6 @@ const NewUserPrompt = () => {
 
     useEffect(() => {
         if (accountsStatus === 'succeeded') {
-            console.log("Here")
             if (!accounts.length) {
                 setShowPrompt(true)
             }
