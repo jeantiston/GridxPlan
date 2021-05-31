@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAccounts, selectAccountsStatus } from '../reducers/accountsSlice'
 
+import NewUserPrompt from './NewUserPrompt'
+
 const InitialFetch = ({children}) => {
     const dispatch = useDispatch()
     const accountsStatus = useSelector(selectAccountsStatus)
@@ -13,7 +15,12 @@ const InitialFetch = ({children}) => {
         }
     }, [accountsStatus, dispatch])
 
-    return children
+    return ( 
+        <div>
+            <NewUserPrompt />
+            { children }
+        </div>
+    )
 
 }
 

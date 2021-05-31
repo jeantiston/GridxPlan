@@ -15,14 +15,12 @@ export const accountsSlice = createSlice({
     name: 'accounts',
     initialState: {
         accounts: [],
-        currentAccount: {},
+        currentAccount: { username: '' },
         status: 'idle',
         error: null
     },
     reducers: {
         switchAccount: (state, action) => {
-            console.log("action")
-            console.log(action)
             state.currentAccount = action.payload
         }
     },
@@ -35,7 +33,7 @@ export const accountsSlice = createSlice({
             console.log("account:succeeded")
             state.status = 'succeeded'
             state.accounts = state.accounts.concat(action.payload)
-            state.currentAccount = state.accounts[0]
+            state.accounts.length > 0 ? state.currentAccount = state.accounts[0] : state.currentAccount = { username: '' }
         },
         [fetchAccounts.rejected]: (state, action) => {
             console.log("account:failed")
@@ -48,6 +46,7 @@ export const accountsSlice = createSlice({
             state.status = 'loading'
         },
         [addAccount.fulfilled]: (state, action) => {
+            console.log("addAccount:succeeded")
             state.status = 'succeeded'
             state.accounts.push(action.payload.account)
         },

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { useSelector } from 'react-redux'
 import { selectCurrentAccount } from '../reducers/accountsSlice'
@@ -8,7 +8,12 @@ import styles from '../styles/share.module.css'
 const Share = () => {
 
     const currentAccount = useSelector(selectCurrentAccount)
-    const shareUrl = `http://127.0.0.1:8000/planner/preview/${currentAccount.username}`
+    const [shareUrl, setShareUrl] = useState(`http://127.0.0.1:8000/planner/preview/${currentAccount.username}`)
+
+    useEffect(() => {
+        setShareUrl(`http://127.0.0.1:8000/planner/preview/${currentAccount.username}`)
+
+    }, [currentAccount])
 
     return (
         <div className={styles.sharePage} onClick={() => {navigator.clipboard.writeText(shareUrl)}}>
