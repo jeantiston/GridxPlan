@@ -26,6 +26,12 @@ export const gridSlice = createSlice({
         addCell: (state, action) => {
             console.log("addCell")
             state.posts.unshift(action.payload)
+        },
+        deleteCell: (state, action) => {
+            console.log("deleteCell")
+            state.posts = state.posts.filter( post => {
+                return post.postId != action.payload
+            })
         }
     },
     extraReducers: {
@@ -36,6 +42,7 @@ export const gridSlice = createSlice({
         [fetchPosts.fulfilled]: (state, action) => {
             state.status = 'succeeded'
             state.posts = action.payload
+            console.log(action.payload)
         },
         [fetchPosts.rejected]: (state, action) => {
             console.log("failed")
@@ -59,7 +66,7 @@ export const gridSlice = createSlice({
 
 
 
-export const { addCell } = gridSlice.actions
+export const { addCell, deleteCell } = gridSlice.actions
 
 export default gridSlice.reducer
 

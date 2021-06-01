@@ -5,6 +5,8 @@ import EditPostForm from '../components/EditPostForm'
 import PostPreview from '../components/PostPreview'
 
 import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { deleteCell } from '../reducers/gridSlice'
 
 const EditPost = () => {
 
@@ -80,10 +82,22 @@ const EditPost = () => {
 
     }
 
+    const dispatch = useDispatch()
+    const deletePost = () => {
+
+        fetch('/api/post/edit/' + postId , {
+            method: 'DELETE'
+        }).then(function(response) {
+            history.push("/")
+            dispatch(deleteCell(postId))
+        })
+
+    }
+
 
     return (
         <div>
-            <PostBar handleSubmit={handleSubmit} editSection={editSection} setEditSection={setEditSection} >
+            <PostBar handleSubmit={handleSubmit} editSection={editSection} setEditSection={setEditSection} deletePost={deletePost}>
                 { editSection ?
                     <EditPostForm postDetails={postDetails} setPostDetails={setPostDetails} err={err} setErr={setErr} />
                     : <PostPreview postDetails={postDetails} />

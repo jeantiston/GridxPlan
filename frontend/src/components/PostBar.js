@@ -4,7 +4,7 @@ import { faTrash, faEdit, faComment } from '@fortawesome/free-solid-svg-icons'
 
 import styles from '../styles/postbar.module.css'
 
-const PostBar = ({ children, handleSubmit, editSection, setEditSection }) => {
+const PostBar = ({ children, handleSubmit, editSection, setEditSection, deletePost }) => {
 
     const isActive = (currentPath) => {
 
@@ -27,7 +27,7 @@ const PostBar = ({ children, handleSubmit, editSection, setEditSection }) => {
         <div>
             <div className={styles.flex}>
                 <div onClick={handleSubmit}><p>Save</p></div>
-                <div><FontAwesomeIcon icon={faTrash} size="lg" /></div>
+                <div><FontAwesomeIcon icon={faTrash} size="lg" onClick={deletePost} /></div>
             </div>
             
             { children }

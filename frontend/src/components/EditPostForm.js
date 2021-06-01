@@ -49,9 +49,11 @@ const EditPostForm = ({postDetails, setPostDetails, err, setErr}) => {
 
         if (filtered.length > maxCount) {
             setHashtagSubStyle(`${styles.sub} ${styles.subErr}`)
+            setErr({ ...err, hashtags: true })
         }
         else {
             setHashtagSubStyle(styles.sub)
+            setErr({ ...err, hashtags: false })
         }
     }
 
