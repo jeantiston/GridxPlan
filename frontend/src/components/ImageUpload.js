@@ -15,7 +15,6 @@ const ImageUpload = () => {
     const history = useHistory()
 
     const handleChange = (e) => {
-        console.log(e.target.files[0].size)
 
         if(e.target.files[0] ){
             if(e.target.files[0].size < 5000000){
@@ -28,8 +27,6 @@ const ImageUpload = () => {
                     body: formData
                 }).then( response => response.json())
                 .then( response => {
-                    console.log("response")
-                    console.log(response)
                     const post = {
                         image: response.image,
                         postId: parseInt(response.id)

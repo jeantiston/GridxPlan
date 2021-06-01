@@ -4,20 +4,30 @@ import styles from '../styles/editpost.module.css'
 
 const EditPostForm = ({ postDetails }) => {
 
+    const [datePreview, setDatePreview] = useState()
+    const [timePreview, setTimePreview] = useState()
+
+    useEffect(() => {
+        let datePreviewStr = (new Date(postDetails.schedule)).toDateString()
+        if (datePreviewStr === "Invalid Date"){
+            setDatePreview("No Schedule")
+        }
+        else {
+            setDatePreview(datePreviewStr)
+        }
+    
+        let timePreviewStr = new Date(postDetails.schedule).toLocaleTimeString()
+        if (timePreviewStr === "Invalid Date"){
+            setTimePreview("")
+        }
+        else {
+            setTimePreview(timePreviewStr)
+        }
+    },[postDetails])
+
+
     const [comment, setComment] = useState('')
     const [username, setUsername] = useState('')
-
-    const [datePreview, setDatePreview] = useState((new Date(postDetails.schedule)).toDateString())
-    const [timePreview, setTimePreview] = useState(new Date(postDetails.schedule).toLocaleTimeString())
-
-    if (datePreview === "Invalid Date"){
-        setDatePreview("No Schedule")
-    }
-
-    if (timePreview === "Invalid Date"){
-        setTimePreview("")
-    }
-
     const [postComments, setPostComments] = useState([])
 
     const handleSubmit = e => {

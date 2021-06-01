@@ -24,6 +24,7 @@ const EditPostForm = ({postDetails, setPostDetails, err, setErr}) => {
     const [hashtagCount, setHashtagCount] = useState(postDetails.hashtags.length)
 
     const handleHashtags = (maxCount, input) => {
+        let errHashtags = false
         const hashtags = input.split(" ")
         const pattern = /#\w*/i
 
@@ -31,11 +32,9 @@ const EditPostForm = ({postDetails, setPostDetails, err, setErr}) => {
             return el !== "";
         });
 
-        setErr({ ...err, hashtags: false })
-
         for (let hashtag of filtered) {
             if (!pattern.test(hashtag) && hashtag) {
-                setErr({ ...err, hashtags: true })
+                errHashtags = errHashtags || true
                 break
             }
         }
@@ -49,12 +48,13 @@ const EditPostForm = ({postDetails, setPostDetails, err, setErr}) => {
 
         if (filtered.length > maxCount) {
             setHashtagSubStyle(`${styles.sub} ${styles.subErr}`)
-            setErr({ ...err, hashtags: true })
+            errHashtags = errHashtags || true
         }
         else {
             setHashtagSubStyle(styles.sub)
-            setErr({ ...err, hashtags: false })
+            errHashtags = errHashtags || false
         }
+        setErr({ ...err, hashtags: errHashtags })
     }
 
     return (

@@ -42,7 +42,6 @@ export const gridSlice = createSlice({
         [fetchPosts.fulfilled]: (state, action) => {
             state.status = 'succeeded'
             state.posts = action.payload
-            console.log(action.payload)
         },
         [fetchPosts.rejected]: (state, action) => {
             console.log("failed")

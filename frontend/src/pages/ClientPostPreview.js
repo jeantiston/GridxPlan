@@ -43,7 +43,6 @@ const ClientPostPreview = () => {
                 status: res.status,
                 schedule: schedule
             })
-
             
         })
 

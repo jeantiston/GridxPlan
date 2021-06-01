@@ -62,7 +62,6 @@ const EditPost = () => {
 
     const handleSubmit = () => {
         if (!err.caption && !err.hashtags) {
-            console.log(postDetails)
             const date = new Date(postDetails.schedule)
             
             const payload = {
