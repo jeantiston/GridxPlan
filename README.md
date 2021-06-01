@@ -118,6 +118,7 @@ api.py
 - post
     - api/post/<int:post_id>
     - GET - fetch a post's details
+    - DELETE - deletes the cell and its associated post
 - update_post
     - api/post/edit/<int:post_id>
     - PUT - update post details like status, schedule, caption, and hashtags
@@ -201,10 +202,11 @@ frontend
 │    │     │   EditPostForm.js
 │    │     │   GridImage.js
 │    │     │   ImageUpload.js
-│    │     │   
+│    │     │   InitialFetch.js
 │    │     │   ListAccounts.js
 │    │     │   ListTeam.js
 │    │     │   Nav.js
+│    │     │   NewUserPrompt.js
 │    │     │   PostBar.js
 │    │     │   PostPreview.js
 │    │     │   PostPreviewBar.js
@@ -233,13 +235,20 @@ frontend
 - It has icons for the different pages planner icon for the GridGallery, share icon for the Share page, gear icon for the Settings page.
 - Image icon for adding a new cell/image is another component ImageUpload.js
 
+**InitialFetch.js**
+
+- Fetches the list of accounts associated with the user by dispatching a redux thunk
+
+**NewUserPrompt.js**
+
+- Shows a modal that asks for a user to add an account when the user is new and/or has not added any account yet
+
 **ImageUpload.js**
 
 - The image icon is associated with an input with a type of file. When the file is selected a POST request to send the image to the API is made.
 
 **ListAccount.js**
 
-- Fetches the list of accounts associated with the user by dispatching a redux thunk
 - Lists the accounts with the current account on bold
 - The accounts can be clicked to switch the current account by dispatching a redux action
 
@@ -269,6 +278,7 @@ frontend
 **PostBar.js**
 
 - Handles the saving of the edited post details in EditPostForm
+- Button for deleting the post
 
 **PostPreview.js**
 
@@ -357,6 +367,7 @@ frontend
     - addCell
     - fetchPosts
     - moveCell
+    - deleteCell
 
 **teamSlice.js**
 
@@ -377,7 +388,7 @@ But in case you want to run it yourselves, here's how.
 
 ### Frontend - React
 
-I have already done the build for the frontend part so hopefully you wouldn't have to. But in case it's needed. This is how to install the dependencies and build the app.
+This is how to install the dependencies and build the app.
 
 1. Install [node.js](https://nodejs.org/en/download/)
 2. Install [npm](https://www.npmjs.com/get-npm)
