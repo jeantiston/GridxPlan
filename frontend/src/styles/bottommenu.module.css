@@ -1,5 +1,4 @@
 .wrapper{
-    /* border: 5px solid olivedrab; */
     background-color: var(--light);
     display: flex;
     justify-content: center;
@@ -10,7 +9,6 @@
 }
 
 .flex{
-    /* border: 5px solid red; */
     background-color: var(--light);
     display: flex;
     align-items: center;
@@ -22,15 +20,10 @@
 
 .menuItem{
     display: flex;
-    /* border: 5px solid red; */
     flex-direction: column;
     align-items: center;
     padding: 5px 10px;
     
-}
-
-.menuItem > * {
-    /* border: 5px solid red; */
 }
 
 .icon{
@@ -38,8 +31,6 @@
     height: 25px;
     color: var(--light-gray);
 }
-
-
 
 .menuText{
     color: var(--light-gray);

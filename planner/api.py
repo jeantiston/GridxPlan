@@ -173,26 +173,6 @@ def update_post(request, post_id):
     else:
             return HttpResponse({"error": "You don't have permission to edit this post"}, status=403)  
 
-    # if request.method == "PUT":
-    #     user = User.objects.get(pk=request.user.id)
-        
-    #     if user in users:
-    #         data = json.loads(request.body)
-    #         post.caption = data.get("caption")
-    #         post.hashtags = data.get("hashtags")
-    #         post.schedule = data.get("schedule")
-    #         post.status = data.get("status")
-
-    #         post.save()
-    #         return HttpResponse(status=204)
-
-        # else:
-        #     return HttpResponse({"error": "You don't have permission to edit this post"}, status=403)        
-
-    # else:
-    #     return JsonResponse({
-    #         "error": "PUT request required."
-    #     }, status=400)
 
 @csrf_exempt
 def add_image(request):

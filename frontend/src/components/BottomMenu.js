@@ -13,18 +13,6 @@ const BottomMenu = () => {
             'path': '/',
             'icon': faCalendarAlt
         },
-        // {   'name': 'status',
-        //     'path': '/',
-        //     'icon': faTag
-        // },
-        // {   'name': 'add image',
-        //     'path': '/add',
-        //     'icon': faFileImage
-        // },
-        // {   'name': 'hashtags',
-        //     'path': '/hashtags',
-        //     'icon': faHashtag
-        // },
         {   'name': 'share',
             'path': '/share',
             'icon': faShareAlt

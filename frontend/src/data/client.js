@@ -6,7 +6,6 @@ export async function client(endpoint, { body, method, ...customConfig } = {}) {
     
     const config = {
         method: method,
-        // method: body ? 'POST' : 'GET',
         ...customConfig,
         headers: {
         ...headers,

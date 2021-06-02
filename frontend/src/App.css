@@ -49,8 +49,6 @@ input, select, textarea{
     margin: 10px 0px;
     border: none;
     color: var(--dark);
-    /* border-radius: 5px; */
-    /* min-height: 30px; */
     padding: 5px 20px;
     font-family: var(--font-text);
     font-size: 0.9rem;
