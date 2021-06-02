@@ -386,7 +386,7 @@ This is how to install the dependencies and build the app.
 
 1. Install [node.js](https://nodejs.org/en/download/)
 2. Install [npm](https://www.npmjs.com/get-npm)
-3. Install the dependencies. Go to GridxPlan/frontend/
+3. Install the dependencies. Go to /frontend
 
 ```bash
 npm install
@@ -407,7 +407,7 @@ npm run build
 pip install -r requirements.txt
 ```
 
-3. Build the database. Go to the main GridxPlan folder
+1. Build the database. Go to the main folder
 
 ```bash
 python3 manage.py makemigrations
