@@ -50,8 +50,6 @@ The following is the application's features that would show its distinctiveness 
 
 ## Files
 
-This would be a long section.
-
 ```bash
 GridxPlan
 └──frontend 
@@ -97,35 +95,35 @@ GridxPlan
 - defines the urls of the different views and APIs
 - specific pages of the app is managed in the frontend using React Router
 
-views.py
+**views.py**
 
 - serves the index, login_view, logout_view and register
 
-api.py
+**api.py**
 
-- team
+- **team**
     - api/team/<str:account>
     - GET - fetch all the team members of an account
     - POST - add a new team member
-- account
+- **account**
     - api/accounts
     - GET - fetching accounts that is associated with the logged in user
     - POST - add a new account
-- grid
+- **grid**
     - api/grid/<str:account>
     - GET - fetch all the cells associated with an account
     - PUT - moving/changing a cell's position
-- post
+- **post**
     - api/post/<int:post_id>
     - GET - fetch a post's details
     - DELETE - deletes the cell and its associated post
-- update_post
+- **update_post**
     - api/post/edit/<int:post_id>
     - PUT - update post details like status, schedule, caption, and hashtags
-- add_image
+- **add_image**
     - api/post/add
     - POST - add a new cell
-- comments
+- **comments**
     - api/comments/<int:post_id>
     - GET - fetch the comments associated with a post
     - POST - add a new comment to a post
@@ -323,7 +321,7 @@ frontend
 - defines the types of draggable object
 - [Needed for react-dnd to work](https://react-dnd.github.io/react-dnd/docs/overview#items-and-types)
 
-items.js
+**items.js**
 
 - defines the item types of draggable object
 - [Needed for react-dnd to work](https://react-dnd.github.io/react-dnd/docs/overview#items-and-types)
@@ -381,10 +379,6 @@ frontend
 ## How to run
 
 The backend is Django and the frontend is made with React. 
-
-A live demo is hosted here:
-
-But in case you want to run it yourselves, here's how.
 
 ### Frontend - React
 
