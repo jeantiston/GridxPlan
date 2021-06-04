@@ -16,6 +16,7 @@ db.sqlite3
 .DS_Store
 
 planner/migrations/*
+!planner/migrations/__init__.py
 
 static/build/*
 package-lock.json
