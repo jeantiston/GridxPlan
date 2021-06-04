@@ -26,7 +26,10 @@ SECRET_KEY = '7367+)8j0y=66!h40l&rg&n@)6wkc7xq+y%wyk^zsd2!48^t=@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'gridxplanner.herokuapp.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -78,11 +81,14 @@ WSGI_APPLICATION = 'GridxPlan.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
+
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True) 
 
 
 # Password validation
