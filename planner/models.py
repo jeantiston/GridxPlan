@@ -60,13 +60,15 @@ def upload_to(instance, filename):
     return 'planner/{filename}'.format(filename=filename)
 
 class Cell(models.Model):
-    image = models.ImageField(upload_to=upload_to, default='planner/default.jpg')
+    # image = models.ImageField(upload_to=upload_to, default='planner/default.jpg')
+    image = models.URLField(blank=False, null=False)
     account = models.ForeignKey('Account', related_name="account_grid", on_delete=models.CASCADE)
     position = models.IntegerField()
 
     def serialize(self):
         return {
-            "image": self.image.url,
+            "image": self.image,
+            # "image": self.image.url,
             "postId": self.post.pk
         }
 
@@ -83,7 +85,8 @@ class Post(models.Model):
 
     def serialize(self):
         return {
-            "image": self.cell.image.url,
+            # "image": self.cell.image.url,
+            "image": self.cell.image,
             "caption": self.caption,
             "hashtags": self.hashtags,
             "schedule": self.schedule,

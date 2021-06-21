@@ -218,6 +218,46 @@ def add_image(request):
         }, status=400)
 
 @csrf_exempt
+def add_image2(request):
+    try:
+        data = json.loads(request.body)
+        print("data")
+        print(data)
+        account = Account.objects.get(username=data.get('account'))
+        users = account.team.member.all()
+    except Post.DoesNotExist:
+        return JsonResponse({"error": "Post not found."}, status=404)
+
+    if request.method == "POST":
+        user = User.objects.get(pk=request.user.id)
+        
+        if user in users:
+            first_cell = account.account_grid.first()
+
+            position = 1
+            if first_cell:
+                position += first_cell.position
+
+            cell = Cell.objects.create(account=account, image=data.get('image'), position=position)
+
+            return JsonResponse({
+                "message": "Image successfully added", 
+                "timestamp": datetime.now().strftime("%b %-d %Y, %-I:%M %p") , 
+                "id": cell.id,
+                "image": cell.image,
+                "position": cell.position
+            }, status=201)
+
+        else:
+            return HttpResponse({"error": "You don't have permission to edit this post"}, status=403)        
+
+
+    else:
+        return JsonResponse({
+            "error": "POST request required."
+        }, status=400)
+
+@csrf_exempt
 def comments(request, post_id):
     if request.method == "GET":
         post_comments = Comment.objects.filter(post__id=post_id)
