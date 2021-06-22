@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import uuid
 
 class User(AbstractUser):
     pass
@@ -60,6 +61,7 @@ def upload_to(instance, filename):
     return 'planner/{filename}'.format(filename=filename)
 
 class Cell(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     image = models.ImageField(upload_to=upload_to, default='planner/default.jpg')
     account = models.ForeignKey('Account', related_name="account_grid", on_delete=models.CASCADE)
     position = models.IntegerField()
